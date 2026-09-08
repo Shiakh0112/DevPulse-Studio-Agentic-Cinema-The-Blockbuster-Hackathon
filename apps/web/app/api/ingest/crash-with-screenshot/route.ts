@@ -132,13 +132,15 @@ export async function POST(req: NextRequest) {
 
     // 6. Fire-and-forget POST request to Python Agent Orchestrator
     const agentUrl = (process.env.AGENT_ORCHESTRATOR_URL || "http://localhost:8001").replace(/\/$/, "");
-    fetch(`${agentUrl}/trigger-pipeline`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ incident_id }),
-    }).catch((err) => {
-      console.error(`[INGEST API] Fire-and-forget call to Agent Orchestrator failed:`, err);
-    });
+    try {
+      await fetch(`${agentUrl}/trigger-pipeline`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ incident_id, payload: incidentRecord }),
+      });
+    } catch (err) {
+      console.error(`[INGEST API] Call to Agent Orchestrator failed:`, err);
+    }
 
     return NextResponse.json(
       {
