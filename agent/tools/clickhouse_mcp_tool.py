@@ -28,7 +28,9 @@ class McpClickHouseTool:
     """
 
     def __init__(self, mcp_url: Optional[str] = None):
-        self.mcp_url = mcp_url or os.getenv("MCP_CLICKHOUSE_URL", "http://127.0.0.1:8000").rstrip("/")
+        port = os.getenv("PORT", "8000")
+        default_url = f"http://127.0.0.1:{port}/mcp"
+        self.mcp_url = mcp_url or os.getenv("MCP_CLICKHOUSE_URL", default_url).rstrip("/")
 
     def run_query(self, sql: str) -> Dict[str, Any]:
         """

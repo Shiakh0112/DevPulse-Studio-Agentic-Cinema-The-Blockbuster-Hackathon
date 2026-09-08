@@ -21,6 +21,11 @@ except ImportError:
     from tools.rollback_helper import build_rollback_event
     from orchestrator import run_pipeline
 
+try:
+    from mcp.clickhouse.middleware import app as mcp_app
+except ImportError:
+    pass
+
 # Load environment variables
 load_dotenv()
 
@@ -47,6 +52,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Mount MCP Middleware on the same server for Cloud Deployment (Railway)
+try:
+    app.mount("/mcp", mcp_app)
+except NameError:
+    pass
 
 
 class TriggerPipelineRequest(BaseModel):
