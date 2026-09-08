@@ -1,0 +1,42 @@
+apiVersion: run.googleapis.com/v1
+kind: Job
+metadata:
+  name: devpulse-verification-sandbox-job
+  labels:
+    cloud.googleapis.com/location: us-central1
+    app: devpulse-studio
+    component: verification-sandbox
+spec:
+  # ==============================================================================
+  # CLOUD RUN JOBS ARCHITECTURAL & ISOLATION COMMENT:
+  # Why Cloud Run Jobs (one-shot task definition) instead of Cloud Run Services?
+  # 
+  # Each verification run — including every self-healing retry attempt in the 
+  # iterative self-healing loop — needs total environment isolation with zero state 
+  # leakage between runs. A Cloud Run Job spins up an ephemeral, pristine container, 
+  # executes the deterministic test suite, and immediately terminates upon completion.
+  #
+  # COMPLIANCE RULE:
+  # The verification sandbox container does NOT connect directly to ClickHouse.
+  # Instead, it interacts exclusively with the MCP ClickHouse Server via HTTP/MCP calls.
+  # ==============================================================================
+  template:
+    spec:
+      taskCount: 1
+      template:
+        spec:
+          timeoutSeconds: 300
+          maxRetries: 0
+          serviceAccountName: sa-webapp@PROJECT_ID.iam.gserviceaccount.com
+          containers:
+            - name: verification-sandbox
+              image: gcr.io/PROJECT_ID/devpulse-verification-sandbox:latest
+              resources:
+                limits:
+                  memory: 1Gi
+                  cpu: 1000m
+              env:
+                - name: MCP_SERVER_URL
+                  value: https://devpulse-mcp-hash-uc.a.run.app
+                - name: VERIFICATION_TIMEOUT
+                  value: "300"

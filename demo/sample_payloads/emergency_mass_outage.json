@@ -1,0 +1,11 @@
+{
+  "project": "cinematch-global-cdn",
+  "service": "edge-streaming-gateway",
+  "job_id": "job_emergency_mass_9900",
+  "worker_id": "us-east-edge-01",
+  "exit_code": 137,
+  "stderr_tail": "FATAL MASS OUTAGE: Global edge proxy gateway worker crashed with SIGKILL (out of memory). 2000+ client connections dropped instantaneously. Emergency rollback guardrail required.",
+  "command": "edge_proxy --listen 0.0.0.0:443 --buffer-pool-mb 16384",
+  "artifact_uri": "gs://devpulse-dumps/crash_mass_outage_dump.txt",
+  "affected_users_estimate": 2000
+}

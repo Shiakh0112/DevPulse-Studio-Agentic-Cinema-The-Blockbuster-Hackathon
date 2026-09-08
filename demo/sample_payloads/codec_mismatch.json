@@ -1,0 +1,11 @@
+{
+  "project": "streamflex-encode",
+  "service": "transcoder-worker",
+  "job_id": "job_tx_44102",
+  "worker_id": "transcode-pod-7a9b",
+  "exit_code": 1,
+  "stderr_tail": "Unknown decoder 'h264_cuvid' requested. FFmpeg build does not include NVENC/CUDA hardware acceleration support for h264_cuvid in target image streamflex/transcoder:v2.1.0.",
+  "command": "ffmpeg -c:v h264_cuvid -i master_mezzanine.mkv -c:v libx264 -b:v 5M output_hls.m3u8",
+  "artifact_uri": "gs://devpulse-dumps/crash_44102_stderr.log",
+  "affected_users_estimate": 50
+}

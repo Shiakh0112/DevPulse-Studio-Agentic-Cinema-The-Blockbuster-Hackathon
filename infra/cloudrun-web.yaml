@@ -1,0 +1,45 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: devpulse-web
+  labels:
+    cloud.googleapis.com/location: us-central1
+    app: devpulse-studio
+    component: web-dashboard
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/maxScale: "10"
+        autoscaling.knative.dev/minScale: "0"
+        run.googleapis.com/client-name: gcloud
+    spec:
+      serviceAccountName: sa-webapp@PROJECT_ID.iam.gserviceaccount.com
+      containers:
+        - image: gcr.io/PROJECT_ID/devpulse-web:latest
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: 1000m
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: AGENT_SERVICE_URL
+              value: https://devpulse-agent-hash-uc.a.run.app
+            - name: CLICKHOUSE_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: clickhouse-host
+                  key: latest
+            - name: CLICKHOUSE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: clickhouse-password
+                  key: latest
+            - name: SLACK_SIGNING_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: slack-signing-secret
+                  key: latest

@@ -1,0 +1,11 @@
+{
+  "project": "hyper-render",
+  "service": "main-composite-pipeline",
+  "job_id": "job_crit_99100",
+  "worker_id": "cluster-master-01",
+  "exit_code": 124,
+  "stderr_tail": "FATAL TIMEOUT: Frame render pipeline timed out after 300 seconds waiting for raytracing worker locks. Deadlock detected in worker threadpool queue. Process terminated by watchdog.",
+  "command": "hyper_render --scene main_title.blend --engine CYCLES --timeout 300 --output /renders/final/",
+  "artifact_uri": "gs://devpulse-dumps/crash_99100_trace.txt",
+  "affected_users_estimate": 500
+}

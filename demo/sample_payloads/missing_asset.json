@@ -1,0 +1,11 @@
+{
+  "project": "streamflex-encode",
+  "service": "stitcher-service",
+  "job_id": "job_stitch_1104",
+  "worker_id": "stitcher-worker-03",
+  "exit_code": 2,
+  "stderr_tail": "ENOENT: No such file or directory: open '/assets/branding/intro_bump_2026.mov'. Failed to open input file stream. Exiting with error code 2.",
+  "command": "ffmpeg -i concat:intro_bump_2026.mov|feature.mp4 -c copy stitched_master.mp4",
+  "artifact_uri": "gs://devpulse-dumps/crash_1104_err.log",
+  "affected_users_estimate": 25
+}

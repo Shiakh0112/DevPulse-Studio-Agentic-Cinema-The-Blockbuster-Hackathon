@@ -1,0 +1,12 @@
+# ==============================================================================
+# MCP ClickHouse Server - Requirements
+# NOTE: Verify the exact package name and version against the official
+# mcp-clickhouse GitHub repository (https://github.com/ClickHouse/mcp-clickhouse)
+# before deploying to production, as MCP server specifications and Python packages
+# update frequently.
+# ==============================================================================
+
+mcp-clickhouse>=0.1.0
+clickhouse-connect>=0.7.0
+pydantic>=2.0.0
+httpx>=0.25.0

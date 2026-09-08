@@ -1,0 +1,11 @@
+{
+  "project": "cinematch-vfx",
+  "service": "frame-renderer",
+  "job_id": "job_render_88921",
+  "worker_id": "gpu-node-04.us-west",
+  "exit_code": 137,
+  "stderr_tail": "[ERROR] CUDA Out of Memory error during 8K EXR compositing. Tried to allocate 14.20 GiB (GPU 0; 16.00 GiB total capacity; 12.80 GiB already allocated). Terminated by Signal 9 (SIGKILL).",
+  "command": "ffmpeg -i 8k_plate_001.exr -vf 'scale=7680:4320,gblur=sigma=20' -c:v prores_ks output_frame_001.mov",
+  "artifact_uri": "gs://devpulse-dumps/crash_88921_dump.log",
+  "affected_users_estimate": 150
+}

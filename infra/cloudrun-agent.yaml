@@ -1,0 +1,48 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: devpulse-agent
+  labels:
+    cloud.googleapis.com/location: us-central1
+    app: devpulse-studio
+    component: agent-orchestrator
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/maxScale: "10"
+        autoscaling.knative.dev/minScale: "0"
+        run.googleapis.com/client-name: gcloud
+    spec:
+      serviceAccountName: sa-agent-runtime@PROJECT_ID.iam.gserviceaccount.com
+      containers:
+        - image: gcr.io/PROJECT_ID/devpulse-agent:latest
+          ports:
+            - containerPort: 8000
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: 2000m
+          env:
+            - name: PYTHONUNBUFFERED
+              value: "1"
+            - name: GEMINI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: gemini-api-key
+                  key: latest
+            - name: CLICKHOUSE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: clickhouse-password
+                  key: latest
+            - name: GITHUB_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: github-token
+                  key: latest
+            - name: SLACK_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: slack-webhook-url
+                  key: latest
