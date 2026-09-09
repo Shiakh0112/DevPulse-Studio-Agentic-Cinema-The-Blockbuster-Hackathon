@@ -107,6 +107,43 @@ export async function getIncidentById(id: string): Promise<Incident | null> {
 }
 
 /**
+ * Inserts a new incident directly into ClickHouse.
+ */
+export async function insertIncident(incident: any): Promise<void> {
+  try {
+    // We only insert the columns that match the ClickHouse schema.
+    const row = {
+      incident_id: incident.incident_id,
+      project: incident.project || '',
+      service: incident.service || '',
+      job_id: incident.job_id || '',
+      worker_id: incident.worker_id || '',
+      exit_code: incident.exit_code || 0,
+      stderr_tail: incident.stderr_tail || '',
+      command: incident.command || '',
+      artifact_uri: incident.artifact_uri || '',
+      status: incident.status || 'PENDING',
+      error_type: incident.error_type || 'UNKNOWN',
+      severity: incident.severity || 'MEDIUM',
+      affected_users_estimate: incident.affected_users_estimate || 0,
+      retry_count: incident.retry_count || 0,
+      crash_screenshot_uri: incident.crash_screenshot_uri || '',
+      estimated_dev_hours_saved: incident.estimated_dev_hours_saved || 0,
+      created_at: incident.created_at || new Date().toISOString().replace('T', ' ').substring(0, 19),
+    };
+    
+    await client.insert({
+      table: 'devpulse.incidents',
+      values: [row],
+      format: 'JSONEachRow',
+    });
+    console.log("[ClickHouse Client] Successfully inserted incident:", incident.incident_id);
+  } catch (error) {
+    console.error("[ClickHouse Client Error] Failed to insert incident:", error);
+  }
+}
+
+/**
  * Fetches the timeline of events for a specific incident.
  */
 export async function getIncidentEvents(incidentId: string): Promise<any[]> {

@@ -73,6 +73,14 @@ export async function POST(req: NextRequest) {
       }
       g.__DEVPULSE_INCIDENTS__.unshift(incidentRecord);
     }
+    
+    // Insert into ClickHouse directly so it persists across Vercel lambda invocations
+    try {
+      const { insertIncident } = await import("@/lib/clickhouseClient");
+      await insertIncident(incidentRecord);
+    } catch (dbErr) {
+      console.error("[INGEST API] Failed to insert into ClickHouse:", dbErr);
+    }
 
     // Fire-and-forget call to Python Agent Orchestrator
     const agentUrl = (process.env.AGENT_ORCHESTRATOR_URL || "http://localhost:8001").replace(/\/$/, "");
