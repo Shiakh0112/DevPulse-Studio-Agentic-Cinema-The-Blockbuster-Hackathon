@@ -3,8 +3,7 @@
 # ⚡ DevPulse Studio
 ### The Self-Healing Incident Response Platform for Media & Entertainment Pipelines
 
-<!-- IMAGE: hero-banner.png — Wide (1600x600px) hero shot of the Live Feed dashboard in dark mode, showing 3-4 incident cards with severity colors and the ROI widget glow visible. This is the FIRST thing judges see — make it look like a real product screenshot, not a mockup. -->
-![DevPulse Studio Dashboard](./assets/hero-banner.png)
+![DevPulse Studio Dashboard](./img/main%20dashbordfeed.png)
 
 **Built for [Agentic Cinema: The Blockbuster Hackathon](https://agentic-cinema.devpost.com) — ClickHouse Partner Track**
 
@@ -51,35 +50,21 @@ DevPulse Studio is not another error tracker. It's a multi-agent AI system, buil
 
 ## 📸 Screenshots
 
-### Live Incident Feed
-<!-- IMAGE: screenshot-live-feed.png — Full-width screenshot of the /feed page showing 4-5 incident cards of different severities, filters visible at top, one card showing the "Emergency" pulsing banner. -->
-![Live Feed](./assets/screenshot-live-feed.png)
-*Real-time incident stream with severity-coded cards, self-healing retry badges, and instant filtering.*
+### Live Incident Feed Dashboard
+![Main Dashboard Feed](./img/main%20dashbordfeed.png)
+*Real-time incident stream with severity-coded cards, self-healing retry badges, SmartPG SaaS dark theme, and instant filtering.*
 
-### Self-Healing in Action
-<!-- IMAGE: screenshot-self-healing-timeline.png — Screenshot of the Incident Detail page's Timeline component, specifically showing "Attempt 1 Failed → Attempt 2 Passed" nodes clearly visible with the dashed connector between them. -->
-![Self-Healing Timeline](./assets/screenshot-self-healing-timeline.png)
-*The AI's full retry history, visible node-by-node — this incident's first fix failed verification, and the system corrected itself on attempt 2.*
+### Self-Healing & Incident Detail Timeline
+![Incident Details](./img/streamflex-encode.png)
+*Detailed incident analysis showing live stderr logs, telemetry grid, and AI proposed code patch diffs.*
 
-### Diff Viewer & Approval
-<!-- IMAGE: screenshot-diff-approval.png — Screenshot of the /approval/[id] page showing the color-coded diff viewer, confidence/risk badges, and the Approve & Apply button. -->
-![Diff and Approval](./assets/screenshot-diff-approval.png)
-*Every proposed patch shown as a reviewable diff, with confidence score, risk rating, and verification test results before anyone approves it.*
+### Live ROI & System Analytics
+![Analytics & Performance](./img/Analytics%20%26%20Autonomous%20System%20Performance.png)
+*Hours saved, MTTR reduction, and crash rate distributions computed live from ClickHouse Materialized Views.*
 
-### Live ROI & Analytics
-<!-- IMAGE: screenshot-analytics-roi.png — Screenshot of the /analytics page with the ROI widget glowing at top and the crash-rate/MTTR/error-type charts below it. -->
-![Analytics Dashboard](./assets/screenshot-analytics-roi.png)
-*Hours saved, dollar value, and MTTR reduction — computed live from ClickHouse Materialized Views, not hardcoded.*
-
-### Emergency Guardrail
-<!-- IMAGE: screenshot-emergency-rollback.png — Screenshot showing the red pulsing Emergency banner on an Incident Detail page plus the "1-Click Emergency Rollback" button and its confirmation modal. -->
-![Emergency Rollback](./assets/screenshot-emergency-rollback.png)
-*When a crash threatens mass user impact, DevPulse stops trusting automation alone and hands control to a human — with one click to roll back.*
-
-### Audit Trail
-<!-- IMAGE: screenshot-audit-trail.png — Screenshot of the /audit page showing the governance decisions table with color-coded decision badges and actor column. -->
-![Audit Trail](./assets/screenshot-audit-trail.png)
-*Every governance decision and rollback event, fully attributed and timestamped.*
+### Governance & Audit Trail
+![Audit Trail](./img/audit.png)
+*Every governance decision, human-in-the-loop approval, and auto-rollback event fully attributed and timestamped.*
 
 ---
 
