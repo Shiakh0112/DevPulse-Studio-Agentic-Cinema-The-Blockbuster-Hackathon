@@ -22,7 +22,7 @@ except ImportError:
     from orchestrator import run_pipeline
 
 try:
-    from mcp.clickhouse.middleware import app as mcp_app
+    from mcp_middleware import app as mcp_app
 except ImportError:
     pass
 
