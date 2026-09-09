@@ -68,17 +68,17 @@ export default function IncidentDetailPage({ params }: IncidentDetailPageProps) 
 
   if (loading && !data) {
     return (
-      <div className="min-h-screen bg-slate-900 text-slate-100 flex flex-col items-center justify-center p-10">
-        <div className="w-10 h-10 border-4 border-amber-400 border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-slate-400 font-medium">Loading Incident Timeline & Telemetry...</p>
+      <div className="min-h-screen bg-bg-main text-text-primary flex flex-col items-center justify-center p-10">
+        <div className="w-10 h-10 border-4 border-accent-DEFAULT border-t-transparent rounded-full animate-spin mb-4" />
+        <p className="text-text-secondary font-medium">Loading Incident Timeline & Telemetry...</p>
       </div>
     );
   }
 
   if (error || !data || !data.incident) {
     return (
-      <div className="min-h-screen bg-slate-900 text-slate-100 p-10 max-w-4xl mx-auto space-y-6">
-        <Link href="/feed" className="text-amber-400 text-sm hover:underline">
+      <div className="min-h-screen bg-bg-main text-text-primary p-10 max-w-4xl mx-auto space-y-6">
+        <Link href="/feed" className="text-accent-DEFAULT text-sm hover:underline">
           ← Back to Live Incident Feed
         </Link>
         <div className="bg-rose-500/10 border border-rose-500/30 text-rose-300 rounded-xl p-6 text-center">
@@ -177,35 +177,35 @@ export default function IncidentDetailPage({ params }: IncidentDetailPageProps) 
 
   const severityColors: Record<string, string> = {
     CRITICAL: "bg-rose-500/20 text-rose-400 border-rose-500/40",
-    HIGH: "bg-amber-500/20 text-amber-400 border-amber-500/40",
-    MEDIUM: "bg-yellow-500/20 text-yellow-400 border-yellow-500/40",
+    HIGH: "bg-accent-DEFAULT/20 text-accent-DEFAULT border-accent-DEFAULT/40",
+    MEDIUM: "bg-accent-DEFAULT/20 text-accent-DEFAULT border-accent-DEFAULT/40",
     LOW: "bg-emerald-500/20 text-emerald-400 border-emerald-500/40",
   };
 
   const sevClass = severityColors[incident.severity?.toUpperCase()] || severityColors.MEDIUM;
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 p-6 md:p-10">
+    <div className="min-h-screen bg-bg-main text-text-primary p-6 md:p-10">
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Navigation Breadcrumb */}
         <div className="flex items-center justify-between">
-          <Link href="/feed" className="text-amber-400 text-sm font-semibold hover:underline flex items-center gap-1">
+          <Link href="/feed" className="text-accent-DEFAULT text-sm font-semibold hover:underline flex items-center gap-1">
             ← Back to Live Incident Feed
           </Link>
-          <span className="text-xs font-mono text-slate-500">Incident UUID: {incident.incident_id}</span>
+          <span className="text-xs font-mono text-text-secondary">Incident UUID: {incident.incident_id}</span>
         </div>
 
         {/* 1. Header Section */}
-        <div className="bg-slate-800/80 backdrop-blur border border-slate-700/60 rounded-xl p-6 shadow-xl space-y-4">
+        <div className="bg-bg-card/80 backdrop-blur border border-border-subtle/60 rounded-xl p-6 shadow-xl space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <div className="flex items-center space-x-3 mb-1">
-                <h1 className="text-3xl font-bold text-slate-100">{incident.project || "Unknown Project"}</h1>
-                <span className="text-xs text-slate-400 bg-slate-950 px-3 py-1 rounded-md border border-slate-800 font-mono">
+                <h1 className="text-3xl font-bold text-text-primary">{incident.project || "Unknown Project"}</h1>
+                <span className="text-xs text-text-secondary bg-bg-main px-3 py-1 rounded-md border border-border-subtle font-mono">
                   {incident.service || "service"}
                 </span>
               </div>
-              <p className="text-sm text-slate-400 font-mono">
+              <p className="text-sm text-text-secondary font-mono">
                 Created: {new Date(incident.created_at).toLocaleString()}
               </p>
             </div>
@@ -214,7 +214,7 @@ export default function IncidentDetailPage({ params }: IncidentDetailPageProps) 
               <span className={`text-sm font-bold px-3.5 py-1 rounded-full border ${sevClass}`}>
                 {incident.severity}
               </span>
-              <span className="text-sm font-bold px-3.5 py-1 rounded-full border bg-slate-800 border-slate-700 text-slate-200">
+              <span className="text-sm font-bold px-3.5 py-1 rounded-full border bg-bg-card border-border-subtle text-text-primary">
                 {displayStatus}
               </span>
             </div>
@@ -242,7 +242,7 @@ export default function IncidentDetailPage({ params }: IncidentDetailPageProps) 
               </button>
             </div>
             {rollbackMessage && (
-              <p className="text-xs font-mono text-amber-300 bg-slate-900/80 p-2.5 rounded border border-amber-500/30">
+              <p className="text-xs font-mono text-accent-DEFAULT bg-bg-main/80 p-2.5 rounded border border-accent-DEFAULT/30">
                 {rollbackMessage}
               </p>
             )}
@@ -270,7 +270,7 @@ export default function IncidentDetailPage({ params }: IncidentDetailPageProps) 
               </button>
             </div>
             {approveMessage && (
-              <p className="text-xs font-mono text-emerald-300 bg-slate-900/80 p-2.5 rounded border border-emerald-500/30">
+              <p className="text-xs font-mono text-emerald-300 bg-bg-main/80 p-2.5 rounded border border-emerald-500/30">
                 {approveMessage}
               </p>
             )}
@@ -278,8 +278,8 @@ export default function IncidentDetailPage({ params }: IncidentDetailPageProps) 
         )}
 
         {/* 2. Stderr Viewer */}
-        <div className="bg-slate-800/80 backdrop-blur border border-slate-700/60 rounded-xl p-6 shadow-lg space-y-3">
-          <h2 className="text-lg font-bold text-slate-100 flex items-center justify-between">
+        <div className="bg-bg-card/80 backdrop-blur border border-border-subtle/60 rounded-xl p-6 shadow-lg space-y-3">
+          <h2 className="text-lg font-bold text-text-primary flex items-center justify-between">
             <span>Stderr Log Snippet</span>
             <span className="text-xs font-mono text-rose-400 bg-rose-950/60 px-2.5 py-1 rounded border border-rose-900/60">
               Exit Code: {incident.exit_code}
@@ -291,35 +291,35 @@ export default function IncidentDetailPage({ params }: IncidentDetailPageProps) 
         </div>
 
         {/* 3. Evidence Panel Grid */}
-        <div className="bg-slate-800/80 backdrop-blur border border-slate-700/60 rounded-xl p-6 shadow-lg space-y-4">
-          <h2 className="text-lg font-bold text-slate-100">Telemetry & Evidence Grid</h2>
+        <div className="bg-bg-card/80 backdrop-blur border border-border-subtle/60 rounded-xl p-6 shadow-lg space-y-4">
+          <h2 className="text-lg font-bold text-text-primary">Telemetry & Evidence Grid</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-mono">
-            <div className="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
-              <span className="block text-slate-500 mb-1">Exit Code</span>
+            <div className="bg-bg-main/80 p-3 rounded-lg border border-border-subtle">
+              <span className="block text-text-secondary mb-1">Exit Code</span>
               <span className="text-rose-400 font-bold text-base">{incident.exit_code}</span>
             </div>
-            <div className="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
-              <span className="block text-slate-500 mb-1">Worker ID</span>
-              <span className="text-slate-200">{incident.worker_id || "worker-01"}</span>
+            <div className="bg-bg-main/80 p-3 rounded-lg border border-border-subtle">
+              <span className="block text-text-secondary mb-1">Worker ID</span>
+              <span className="text-text-primary">{incident.worker_id || "worker-01"}</span>
             </div>
-            <div className="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
-              <span className="block text-slate-500 mb-1">Job ID</span>
-              <span className="text-slate-200">{incident.job_id || "job-101"}</span>
+            <div className="bg-bg-main/80 p-3 rounded-lg border border-border-subtle">
+              <span className="block text-text-secondary mb-1">Job ID</span>
+              <span className="text-text-primary">{incident.job_id || "job-101"}</span>
             </div>
-            <div className="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
-              <span className="block text-slate-500 mb-1">Affected Users</span>
-              <span className="text-amber-400 font-bold text-base">{incident.affected_users_estimate || 0}</span>
+            <div className="bg-bg-main/80 p-3 rounded-lg border border-border-subtle">
+              <span className="block text-text-secondary mb-1">Affected Users</span>
+              <span className="text-accent-DEFAULT font-bold text-base">{incident.affected_users_estimate || 0}</span>
             </div>
-            <div className="bg-slate-900/80 p-3 rounded-lg border border-slate-800 col-span-2">
-              <span className="block text-slate-500 mb-1">Command</span>
-              <span className="text-slate-300 truncate block">{incident.command || "N/A"}</span>
+            <div className="bg-bg-main/80 p-3 rounded-lg border border-border-subtle col-span-2">
+              <span className="block text-text-secondary mb-1">Command</span>
+              <span className="text-text-secondary truncate block">{incident.command || "N/A"}</span>
             </div>
-            <div className="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
-              <span className="block text-slate-500 mb-1">Self-Healing Retries</span>
-              <span className="text-amber-400 font-bold text-base">{displayRetries} / 3</span>
+            <div className="bg-bg-main/80 p-3 rounded-lg border border-border-subtle">
+              <span className="block text-text-secondary mb-1">Self-Healing Retries</span>
+              <span className="text-accent-DEFAULT font-bold text-base">{displayRetries} / 3</span>
             </div>
-            <div className="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
-              <span className="block text-slate-500 mb-1">Hours Saved</span>
+            <div className="bg-bg-main/80 p-3 rounded-lg border border-border-subtle">
+              <span className="block text-text-secondary mb-1">Hours Saved</span>
               <span className="text-emerald-400 font-bold text-base">{displayHours} hrs</span>
             </div>
           </div>
@@ -327,23 +327,23 @@ export default function IncidentDetailPage({ params }: IncidentDetailPageProps) 
 
         {/* 📷 Visual Evidence Section (ONLY renders if crash_screenshot_uri is non-empty) */}
         {Boolean(incident.crash_screenshot_uri) && (
-          <div className="bg-slate-800/80 backdrop-blur border border-slate-700/60 rounded-xl p-6 shadow-lg space-y-4">
-            <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
+          <div className="bg-bg-card/80 backdrop-blur border border-border-subtle/60 rounded-xl p-6 shadow-lg space-y-4">
+            <h2 className="text-lg font-bold text-text-primary flex items-center gap-2">
               <span>📸</span> Multimodal Visual Evidence
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-              <div className="bg-slate-950 rounded-xl overflow-hidden border border-slate-800 p-2">
+              <div className="bg-bg-main rounded-xl overflow-hidden border border-border-subtle p-2">
                 <img
                   src={incident.crash_screenshot_uri}
                   alt="Crash Screenshot"
                   className="w-full h-auto max-h-80 object-contain rounded-lg"
                 />
               </div>
-              <div className="bg-slate-900/90 rounded-xl p-4 border border-slate-800 space-y-2">
-                <h3 className="text-xs font-semibold text-amber-400 uppercase tracking-wider">
+              <div className="bg-bg-main/90 rounded-xl p-4 border border-border-subtle space-y-2">
+                <h3 className="text-xs font-semibold text-accent-DEFAULT uppercase tracking-wider">
                   Gemini 1.5 Pro Vision Analysis
                 </h3>
-                <p className="text-sm text-slate-300 leading-relaxed font-sans">
+                <p className="text-sm text-text-secondary leading-relaxed font-sans">
                   {visionCaption || "Visual analysis confirms frame corruption artifacts matching stderr allocation boundary."}
                 </p>
               </div>
@@ -353,23 +353,23 @@ export default function IncidentDetailPage({ params }: IncidentDetailPageProps) 
 
         {/* AI Patch Proposal Section */}
         {proposals && proposals.length > 0 && (
-          <div className="bg-slate-800/80 backdrop-blur border border-slate-700/60 rounded-xl p-6 shadow-lg space-y-4">
-            <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
+          <div className="bg-bg-card/80 backdrop-blur border border-border-subtle/60 rounded-xl p-6 shadow-lg space-y-4">
+            <h2 className="text-lg font-bold text-text-primary flex items-center gap-2">
               <span>🤖</span> AI Patch Proposal
             </h2>
             {proposals.map((prop, idx) => (
-              <div key={prop.proposal_id || idx} className="bg-slate-900/80 rounded-xl p-5 border border-slate-700/80 space-y-4">
+              <div key={prop.proposal_id || idx} className="bg-bg-main/80 rounded-xl p-5 border border-border-subtle/80 space-y-4">
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-bold text-indigo-400 bg-indigo-950/60 px-3 py-1 rounded-full border border-indigo-900/60">
                       {prop.change_type || "CONFIG"}
                     </span>
-                    <span className="text-xs font-mono text-slate-400">
+                    <span className="text-xs font-mono text-text-secondary">
                       {prop.file_path || "Unknown File"}
                     </span>
                   </div>
                   <div className="flex items-center gap-3 text-xs font-bold">
-                    <span className="text-amber-400 bg-amber-950/60 px-2.5 py-1 rounded border border-amber-900/60">
+                    <span className="text-accent-DEFAULT bg-accent-DEFAULT/60 px-2.5 py-1 rounded border border-accent-DEFAULT/60">
                       Risk: {prop.risk || "LOW"}
                     </span>
                     <span className="text-emerald-400 bg-emerald-950/60 px-2.5 py-1 rounded border border-emerald-900/60">
@@ -379,23 +379,23 @@ export default function IncidentDetailPage({ params }: IncidentDetailPageProps) 
                 </div>
 
                 <div className="space-y-2">
-                  <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Rationale</h3>
-                  <p className="text-sm text-slate-300 leading-relaxed font-sans bg-slate-950/50 p-3 rounded-lg border border-slate-800">
+                  <h3 className="text-xs font-semibold text-text-secondary uppercase tracking-wider">Rationale</h3>
+                  <p className="text-sm text-text-secondary leading-relaxed font-sans bg-bg-main/50 p-3 rounded-lg border border-border-subtle">
                     {prop.rationale || "No rationale provided."}
                   </p>
                 </div>
 
                 <div className="space-y-2">
-                  <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Proposed Code Diff</h3>
-                  <pre className="bg-slate-950 border border-slate-800 text-slate-300 p-4 rounded-xl font-mono text-xs overflow-x-auto whitespace-pre-wrap leading-relaxed">
+                  <h3 className="text-xs font-semibold text-text-secondary uppercase tracking-wider">Proposed Code Diff</h3>
+                  <pre className="bg-bg-main border border-border-subtle text-text-secondary p-4 rounded-xl font-mono text-xs overflow-x-auto whitespace-pre-wrap leading-relaxed">
                     {prop.diff_unified || "No diff provided."}
                   </pre>
                 </div>
 
                 {prop.test_plan && (
                   <div className="space-y-2">
-                    <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Validation Test Plan</h3>
-                    <pre className="bg-slate-950 border border-slate-800 text-emerald-300 p-4 rounded-xl font-mono text-xs overflow-x-auto whitespace-pre-wrap leading-relaxed">
+                    <h3 className="text-xs font-semibold text-text-secondary uppercase tracking-wider">Validation Test Plan</h3>
+                    <pre className="bg-bg-main border border-border-subtle text-emerald-300 p-4 rounded-xl font-mono text-xs overflow-x-auto whitespace-pre-wrap leading-relaxed">
                       {typeof prop.test_plan === 'string' ? prop.test_plan : JSON.stringify(prop.test_plan, null, 2)}
                     </pre>
                   </div>

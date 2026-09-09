@@ -31,7 +31,7 @@ export const RoleSwitcher: React.FC = () => {
   }, []);
 
   const rolesList: { id: UserRole; label: string; icon: React.ReactNode; color: string }[] = [
-    { id: 'viewer', label: 'Viewer', icon: <Eye className="w-4 h-4 text-slate-400" />, color: 'text-slate-300' },
+    { id: 'viewer', label: 'Viewer', icon: <Eye className="w-4 h-4 text-text-secondary" />, color: 'text-text-secondary' },
     { id: 'engineer', label: 'Engineer', icon: <UserCheck className="w-4 h-4 text-emerald-400" />, color: 'text-emerald-300' },
     { id: 'admin', label: 'Admin', icon: <Shield className="w-4 h-4 text-rose-400" />, color: 'text-rose-300' },
   ];
@@ -46,24 +46,24 @@ export const RoleSwitcher: React.FC = () => {
         onClick={() => setIsOpen((prev) => !prev)}
         className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl border text-xs font-semibold transition-all duration-200 shadow-md cursor-pointer ${
           isOpen
-            ? 'bg-slate-900 border-amber-500/80 ring-2 ring-amber-500/20 text-white shadow-amber-500/10 shadow-lg'
-            : 'bg-slate-950/80 border-slate-700/60 text-slate-200 hover:border-amber-500/50 hover:bg-slate-900'
+            ? 'bg-bg-main border-accent-DEFAULT/80 ring-2 ring-amber-500/20 text-white shadow-amber-500/10 shadow-lg'
+            : 'bg-bg-main/80 border-border-subtle/60 text-text-primary hover:border-accent-DEFAULT/50 hover:bg-bg-main'
         }`}
       >
         {currentConfig.icon}
-        <span className="text-slate-400 font-mono uppercase tracking-wider">Role:</span>
+        <span className="text-text-secondary font-mono uppercase tracking-wider">Role:</span>
         <span className={`${currentConfig.color} font-semibold`}>{currentConfig.label}</span>
         <ChevronDown
-          className={`w-3.5 h-3.5 text-amber-400/80 shrink-0 transition-transform duration-200 ${
-            isOpen ? 'rotate-180 text-amber-400' : ''
+          className={`w-3.5 h-3.5 text-accent-DEFAULT/80 shrink-0 transition-transform duration-200 ${
+            isOpen ? 'rotate-180 text-accent-DEFAULT' : ''
           }`}
         />
       </button>
 
       {/* Floating Menu */}
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 w-48 z-50 bg-slate-950/95 backdrop-blur-xl border border-slate-700/80 rounded-xl shadow-2xl overflow-hidden py-1 animate-in fade-in zoom-in-95 duration-150">
-          <div className="px-3 py-1.5 text-[10px] font-mono text-slate-400 uppercase tracking-widest border-b border-slate-800/80">
+        <div className="absolute right-0 top-full mt-2 w-48 z-50 bg-bg-main/95 backdrop-blur-xl border border-border-subtle/80 rounded-xl shadow-2xl overflow-hidden py-1 animate-in fade-in zoom-in-95 duration-150">
+          <div className="px-3 py-1.5 text-[10px] font-mono text-text-secondary uppercase tracking-widest border-b border-border-subtle/80">
             Switch RBAC Role
           </div>
           {rolesList.map((r) => {
@@ -78,15 +78,15 @@ export const RoleSwitcher: React.FC = () => {
                 }}
                 className={`w-full text-left px-3.5 py-2.5 text-xs flex items-center justify-between transition-colors duration-150 cursor-pointer ${
                   isSelected
-                    ? 'bg-amber-500/15 text-amber-300 font-bold border-l-2 border-amber-400'
-                    : 'text-slate-300 hover:bg-slate-800/80 hover:text-amber-200'
+                    ? 'bg-accent-DEFAULT/15 text-accent-DEFAULT font-bold border-l-2 border-accent-DEFAULT'
+                    : 'text-text-secondary hover:bg-bg-card/80 hover:text-accent-DEFAULT'
                 }`}
               >
                 <div className="flex items-center gap-2">
                   {r.icon}
-                  <span className={isSelected ? 'text-amber-300' : r.color}>{r.label}</span>
+                  <span className={isSelected ? 'text-accent-DEFAULT' : r.color}>{r.label}</span>
                 </div>
-                {isSelected && <Check className="w-4 h-4 text-amber-400 shrink-0" />}
+                {isSelected && <Check className="w-4 h-4 text-accent-DEFAULT shrink-0" />}
               </button>
             );
           })}

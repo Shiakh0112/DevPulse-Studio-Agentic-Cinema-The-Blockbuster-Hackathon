@@ -2,419 +2,205 @@
 @import "tailwindcss";
 
 /* ==========================================
-   ROOT DESIGN TOKENS
-   ========================================== */
-
-/* ==========================================
-   2. ROOT DESIGN TOKENS
+   SMARTPG DESIGN TOKENS
    ========================================== */
 :root {
-  --background: #06080f;
-  --foreground: #f0f4ff;
-  --card-bg: rgba(15, 23, 42, 0.6);
-  --card-border: rgba(71, 85, 105, 0.35);
-  --card-hover-border: rgba(251, 191, 36, 0.5);
-  --glow-amber: 0 0 20px rgba(251, 191, 36, 0.12);
+  --background: #0B0E14;
+  --foreground: #FFFFFF;
+  --card-bg: #121824;
+  --card-border: #1F293D;
+  --card-hover-border: #6366F1;
+  --glow-indigo: 0 0 20px rgba(99, 102, 241, 0.15);
   --glow-emerald: 0 0 20px rgba(16, 185, 129, 0.15);
   --glow-rose: 0 0 25px rgba(244, 63, 94, 0.2);
-  --gradient-dark: linear-gradient(135deg, #06080f 0%, #0c1220 40%, #0a0f1e 100%);
-  --gradient-card: linear-gradient(145deg, rgba(15, 23, 42, 0.7) 0%, rgba(10, 15, 30, 0.9) 100%);
+  --gradient-dark: linear-gradient(135deg, #0B0E14 0%, #121824 100%);
+  --gradient-card: linear-gradient(145deg, #121824 0%, #161D2A 100%);
 }
 
 /* ==========================================
-   3. BODY & BASE STYLES
+   BODY & BASE STYLES
    ========================================== */
 body {
-  background: var(--gradient-dark);
+  background-color: var(--background);
   color: var(--foreground);
   font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  letter-spacing: -0.01em;
 }
 
 /* ==========================================
-   4. CUSTOM SCROLLBAR (Dark Theme)
+   CUSTOM SCROLLBAR
    ========================================== */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0f1e;
+  background: #0B0E14;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #1F293D;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #4F46E5;
 }
 
 /* ==========================================
-   5. SIDEBAR UPGRADE
+   SIDEBAR
    ========================================== */
 aside {
-  background: linear-gradient(180deg, #030712 0%, #0a0f1e 50%, #06080f 100%) !important;
-  border-right-color: rgba(30, 41, 59, 0.5) !important;
+  background: #121824 !important;
+  border-right: 1px solid #1F293D !important;
 }
 
 aside nav a {
-  border-radius: 10px !important;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+  color: #8A94A6 !important;
 }
 
 aside nav a:hover {
-  background: rgba(251, 191, 36, 0.08) !important;
-  border-left: 2px solid rgba(251, 191, 36, 0.5);
-  padding-left: 14px !important;
+  background: rgba(99, 102, 241, 0.1) !important;
+  color: #FFFFFF !important;
+}
+
+aside nav a.active, aside nav a[href*="active"] {
+  background: rgba(99, 102, 241, 0.15) !important;
+  border-left: 3px solid #6366F1 !important;
+  color: #FFFFFF !important;
+  padding-left: 13px !important; /* adjust for border */
 }
 
 /* ==========================================
-   6. HEADER BAR UPGRADE
+   HEADER BAR
    ========================================== */
 header {
-  background: rgba(3, 7, 18, 0.85) !important;
-  backdrop-filter: blur(20px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-  border-bottom-color: rgba(30, 41, 59, 0.4) !important;
+  background: rgba(18, 24, 36, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid #1F293D !important;
 }
 
 /* ==========================================
-   7. CARD GLASSMORPHISM UPGRADE
+   CARD STYLES (INCIDENTS / PANELS)
    ========================================== */
-
-/* Incident Cards */
-a[href^="/incident/"],
-.incident-card {
-  background: var(--gradient-card) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
+.incident-card, 
+div[class*="bg-slate-800"], 
+div[class*="bg-slate-900"] {
+  background: var(--card-bg) !important;
   border-color: var(--card-border) !important;
-  border-radius: 16px !important;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  border-radius: 12px !important;
+  transition: all 0.2s ease !important;
 }
 
 a[href^="/incident/"]:hover,
 .incident-card:hover {
   border-color: var(--card-hover-border) !important;
-  box-shadow: var(--glow-amber) !important;
-  transform: translateY(-3px) !important;
-}
-
-/* Filter Bar */
-.filter-bar,
-div[class*="bg-slate-800/60"][class*="backdrop-blur"] {
-  background: rgba(15, 23, 42, 0.5) !important;
-  backdrop-filter: blur(16px) !important;
-  border-color: rgba(71, 85, 105, 0.3) !important;
-  border-radius: 16px !important;
+  box-shadow: var(--glow-indigo) !important;
+  transform: translateY(-2px) !important;
 }
 
 /* ==========================================
-   8. ULTRA-PREMIUM SELECT / DROPDOWN STYLING
+   SELECT / DROPDOWN
    ========================================== */
 select {
   appearance: none !important;
-  -webkit-appearance: none !important;
-  -moz-appearance: none !important;
-  background-color: #0c1220 !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23fbbf24' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E") !important;
+  background-color: #161D2A !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236366F1' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E") !important;
   background-repeat: no-repeat !important;
   background-position: right 14px center !important;
   background-size: 16px 16px !important;
-  padding-right: 40px !important;
-  padding-left: 14px !important;
-  padding-top: 10px !important;
-  padding-bottom: 10px !important;
-  color: #f1f5f9 !important;
-  font-family: 'Inter', sans-serif !important;
-  font-weight: 500 !important;
-  font-size: 0.875rem !important;
-  border: 1px solid rgba(71, 85, 105, 0.45) !important;
-  border-radius: 10px !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  cursor: pointer !important;
+  color: #FFFFFF !important;
+  border: 1px solid #1F293D !important;
+  border-radius: 8px !important;
+  padding: 8px 36px 8px 12px !important;
 }
 
-select:hover {
-  background-color: #111827 !important;
-  border-color: rgba(251, 191, 36, 0.6) !important;
-  box-shadow: 0 0 16px rgba(251, 191, 36, 0.15), 0 4px 16px rgba(0, 0, 0, 0.3) !important;
-  transform: translateY(-1px) !important;
-}
-
-select:focus {
-  background-color: #0f172a !important;
-  border-color: #fbbf24 !important;
-  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.25), 0 6px 20px rgba(0, 0, 0, 0.4) !important;
+select:hover, select:focus {
+  border-color: #6366F1 !important;
   outline: none !important;
 }
 
-/* Styled option popup items */
 select option {
-  background-color: #0b1120 !important;
-  color: #f1f5f9 !important;
-  padding: 12px 16px !important;
-  font-size: 0.875rem !important;
-  font-weight: 500 !important;
-}
-
-select option:hover,
-select option:focus,
-select option:active,
-select option:checked {
-  background-color: #1e293b !important;
-  color: #fbbf24 !important;
+  background-color: #121824 !important;
+  color: #FFFFFF !important;
 }
 
 /* ==========================================
-   9. HEADING GRADIENT TEXT
+   HEADING GRADIENT TEXT
    ========================================== */
 h1 {
-  background: linear-gradient(135deg, #f8fafc 0%, #94a3b8 50%, #f8fafc 100%);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: shimmer-text 4s ease-in-out infinite;
-}
-
-@keyframes shimmer-text {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  color: #FFFFFF !important;
+  background: none !important;
+  -webkit-text-fill-color: #FFFFFF !important;
 }
 
 /* ==========================================
-   10. ROI WIDGET GLOW UPGRADE
+   ROI WIDGET
    ========================================== */
 div[class*="border-emerald-500"] {
   box-shadow: var(--glow-emerald) !important;
-  border-radius: 20px !important;
-  background: linear-gradient(145deg, rgba(6, 78, 59, 0.15) 0%, rgba(3, 7, 18, 0.9) 100%) !important;
-}
-
-/* ROI Stat blocks */
-div[class*="border-emerald-500"] div[class*="bg-slate-950"] {
-  background: rgba(3, 7, 18, 0.8) !important;
-  border-radius: 14px !important;
-  transition: all 0.3s ease !important;
-}
-
-div[class*="border-emerald-500"] div[class*="bg-slate-950"]:hover {
-  background: rgba(6, 78, 59, 0.12) !important;
-  border-color: rgba(16, 185, 129, 0.4) !important;
-  transform: translateY(-2px);
+  background: #121824 !important;
+  border-color: #10B981 !important;
 }
 
 /* ==========================================
-   11. EMERGENCY PULSING UPGRADE
+   EMERGENCY PULSING
    ========================================== */
-@keyframes pulse-fast {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
 @keyframes emergency-glow {
-  0%, 100% { 
-    box-shadow: 0 0 5px rgba(244, 63, 94, 0.3), 0 0 15px rgba(244, 63, 94, 0.1);
-  }
-  50% { 
-    box-shadow: 0 0 15px rgba(244, 63, 94, 0.5), 0 0 35px rgba(244, 63, 94, 0.2);
-  }
+  0%, 100% { box-shadow: 0 0 10px rgba(244, 63, 94, 0.2); border-color: rgba(244, 63, 94, 0.4); }
+  50% { box-shadow: 0 0 20px rgba(244, 63, 94, 0.4); border-color: rgba(244, 63, 94, 0.8); }
 }
 
-@keyframes emergency-border {
-  0%, 100% { border-color: rgba(244, 63, 94, 0.5); }
-  50% { border-color: rgba(244, 63, 94, 0.9); }
-}
-
-.animate-pulse-fast {
-  animation: pulse-fast 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-/* Emergency banner on cards */
 div[class*="bg-rose-950"][class*="animate-pulse"] {
-  animation: pulse-fast 1.5s ease-in-out infinite, emergency-glow 2s ease-in-out infinite !important;
-  background: linear-gradient(90deg, rgba(76, 5, 25, 0.95), rgba(127, 29, 29, 0.9), rgba(76, 5, 25, 0.95)) !important;
-  background-size: 200% 100% !important;
+  animation: emergency-glow 2s ease-in-out infinite !important;
+  background: #121824 !important;
+  border-width: 2px !important;
 }
 
 /* ==========================================
-   12. BADGE / PILL UPGRADES
+   CODE BLOCKS
    ========================================== */
-span[class*="rounded-full"][class*="border"] {
-  font-family: 'Inter', sans-serif !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.02em !important;
-  transition: all 0.2s ease !important;
+pre, code, .font-mono {
+  font-family: 'JetBrains Mono', monospace !important;
+  background: #0B0E14 !important;
+  border: 1px solid #1F293D !important;
+  color: #8A94A6 !important;
 }
 
 /* ==========================================
-   13. CODE BLOCKS & MONO TEXT
+   TABLES
    ========================================== */
-code, pre, .font-mono,
-span[class*="font-mono"],
-div[class*="font-mono"] {
-  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, monospace !important;
-}
-
-/* Stderr preview blocks */
-div[class*="bg-slate-950"][class*="font-mono"][class*="text-xs"] {
-  background: rgba(2, 6, 14, 0.95) !important;
-  border-color: rgba(30, 41, 59, 0.4) !important;
-  border-radius: 10px !important;
-  line-height: 1.6 !important;
-}
-
-/* ==========================================
-   14. TABLE STYLING
-   ========================================== */
-table {
-  border-collapse: separate;
-  border-spacing: 0;
-  width: 100%;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-thead {
-  background: rgba(15, 23, 42, 0.8);
-}
-
 thead th {
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #94a3b8;
-  padding: 14px 16px;
-  border-bottom: 1px solid rgba(51, 65, 85, 0.5);
-  text-align: left;
+  background: #161D2A !important;
+  color: #8A94A6 !important;
+  border-bottom: 1px solid #1F293D !important;
 }
-
-tbody tr {
-  transition: all 0.15s ease;
-  border-bottom: 1px solid rgba(30, 41, 59, 0.3);
-}
-
-tbody tr:hover {
-  background: rgba(251, 191, 36, 0.04);
-}
-
 tbody td {
-  padding: 12px 16px;
-  font-size: 0.875rem;
-  color: #cbd5e1;
-  vertical-align: middle;
+  border-bottom: 1px solid #1F293D !important;
+}
+tbody tr:hover {
+  background: #161D2A !important;
 }
 
 /* ==========================================
-   15. BUTTON UPGRADES
+   BUTTONS
    ========================================== */
-button {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+button[class*="bg-rose"] {
+  background: #F43F5E !important;
+  color: white !important;
+  border: none !important;
 }
-
-button:active {
-  transform: scale(0.97) !important;
-}
-
-/* Emergency Rollback Button */
-button[class*="bg-rose"],
-button[class*="bg-red"] {
-  border-radius: 12px !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.02em !important;
-}
-
-button[class*="bg-rose"]:hover,
-button[class*="bg-red"]:hover {
+button[class*="bg-rose"]:hover {
+  background: #E11D48 !important;
   box-shadow: var(--glow-rose) !important;
-  transform: translateY(-1px) !important;
 }
-
-/* ==========================================
-   16. RECHARTS STYLING
-   ========================================== */
-.recharts-cartesian-grid-horizontal line,
-.recharts-cartesian-grid-vertical line {
-  stroke: rgba(51, 65, 85, 0.3) !important;
+button[class*="bg-indigo"] {
+  background: #4F46E5 !important;
+  color: white !important;
+  border: none !important;
 }
-
-.recharts-text {
-  font-family: 'Inter', sans-serif !important;
-  fill: #64748b !important;
-  font-size: 11px !important;
-}
-
-.recharts-tooltip-wrapper {
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
-}
-
-/* ==========================================
-   17. PAGE TRANSITION ANIMATION
-   ========================================== */
-main {
-  animation: page-fade-in 0.3s ease-out;
-}
-
-@keyframes page-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ==========================================
-   18. CARD GRID STAGGER ANIMATION
-   ========================================== */
-div[class*="grid"] > a:nth-child(1) { animation-delay: 0ms; }
-div[class*="grid"] > a:nth-child(2) { animation-delay: 50ms; }
-div[class*="grid"] > a:nth-child(3) { animation-delay: 100ms; }
-div[class*="grid"] > a:nth-child(4) { animation-delay: 150ms; }
-div[class*="grid"] > a:nth-child(5) { animation-delay: 200ms; }
-div[class*="grid"] > a:nth-child(6) { animation-delay: 250ms; }
-
-div[class*="grid"] > a {
-  animation: card-slide-in 0.4s ease-out backwards;
-}
-
-@keyframes card-slide-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* ==========================================
-   19. LOADING SPINNER UPGRADE
-   ========================================== */
-div[class*="border-amber-400"][class*="animate-spin"] {
-  border-width: 3px !important;
-  width: 36px !important;
-  height: 36px !important;
-  border-color: rgba(251, 191, 36, 0.2) !important;
-  border-top-color: #fbbf24 !important;
-}
-
-/* ==========================================
-   20. LINK HOVER GLOW EFFECT
-   ========================================== */
-a {
-  transition: all 0.2s ease !important;
-}
-
-nav a:hover {
-  text-shadow: 0 0 12px rgba(251, 191, 36, 0.3);
+button[class*="bg-indigo"]:hover {
+  background: #4338CA !important;
+  box-shadow: var(--glow-indigo) !important;
 }

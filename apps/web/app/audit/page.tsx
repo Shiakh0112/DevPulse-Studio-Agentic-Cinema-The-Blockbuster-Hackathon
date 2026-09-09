@@ -95,7 +95,7 @@ export default function AuditPage() {
     }
     if (stUpper.includes("REVIEW") || stUpper.includes("NEEDS")) {
       return (
-        <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">
+        <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-accent-DEFAULT/20 text-accent-DEFAULT border border-accent-DEFAULT/40">
           {status}
         </span>
       );
@@ -116,7 +116,7 @@ export default function AuditPage() {
     }
 
     return (
-      <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
+      <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-bg-card text-text-secondary border border-border-subtle">
         {status}
       </span>
     );
@@ -147,25 +147,25 @@ export default function AuditPage() {
   return (
     <div className="space-y-8 max-w-7xl mx-auto pb-16">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-4">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border-subtle pb-4">
         <div>
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold text-slate-100 flex items-center gap-2">
+            <h1 className="text-2xl font-bold text-text-primary flex items-center gap-2">
               <ShieldCheck className="w-7 h-7 text-indigo-400" />
               Governance & Audit Trail
             </h1>
-            <span className="text-xs font-mono px-3 py-1 rounded-full bg-slate-800 text-slate-400 border border-slate-700">
+            <span className="text-xs font-mono px-3 py-1 rounded-full bg-bg-card text-text-secondary border border-border-subtle">
               Immutable Policy Records
             </span>
           </div>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-sm text-text-secondary mt-1">
             Complete audit trail of AI patch approvals, deterministic sandbox verifications, and 1-Click emergency rollbacks.
           </p>
         </div>
 
         {/* Viewer Role Warning Banner */}
         {isViewer && (
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-amber-500/10 border border-amber-500/30 text-amber-400 rounded-lg text-xs font-mono">
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-accent-DEFAULT/10 border border-accent-DEFAULT/30 text-accent-DEFAULT rounded-lg text-xs font-mono">
             <Lock className="w-4 h-4" />
             <span>Read-Only Viewer Mode (Actions Restricted)</span>
           </div>
@@ -173,8 +173,8 @@ export default function AuditPage() {
       </div>
 
       {/* Filter Controls Bar */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-wrap items-center justify-between gap-4 shadow-xl">
-        <div className="flex items-center gap-2 text-xs font-semibold text-slate-300">
+      <div className="bg-bg-main border border-border-subtle rounded-xl p-4 flex flex-wrap items-center justify-between gap-4 shadow-xl">
+        <div className="flex items-center gap-2 text-xs font-semibold text-text-secondary">
           <Filter className="w-4 h-4 text-indigo-400" />
           <span>Audit Filters</span>
         </div>
@@ -215,21 +215,21 @@ export default function AuditPage() {
       </div>
 
       {/* Main Audit Trail Table */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
+      <div className="bg-bg-main border border-border-subtle rounded-xl overflow-hidden shadow-2xl">
         {loading ? (
-          <div className="p-12 text-center text-slate-400 font-mono text-sm flex items-center justify-center gap-3">
+          <div className="p-12 text-center text-text-secondary font-mono text-sm flex items-center justify-center gap-3">
             <div className="w-5 h-5 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
             <span>Fetching governance audit trail from ClickHouse...</span>
           </div>
         ) : filteredRecords.length === 0 ? (
-          <div className="p-12 text-center text-slate-400 font-mono text-sm">
+          <div className="p-12 text-center text-text-secondary font-mono text-sm">
             No audit records match the selected filters.
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-slate-800/80 border-b border-slate-700/60 text-slate-400 font-mono uppercase tracking-wider">
+                <tr className="bg-bg-card/80 border-b border-border-subtle/60 text-text-secondary font-mono uppercase tracking-wider">
                   <th className="py-3.5 px-4">Timestamp</th>
                   <th className="py-3.5 px-4">Incident ID</th>
                   <th className="py-3.5 px-4">Action Type</th>
@@ -241,11 +241,11 @@ export default function AuditPage() {
               </thead>
               <tbody className="divide-y divide-slate-800/80 font-mono">
                 {filteredRecords.map((rec) => (
-                  <tr key={rec.id} className="hover:bg-slate-800/40 transition-colors">
+                  <tr key={rec.id} className="hover:bg-bg-card/40 transition-colors">
                     {/* Timestamp */}
-                    <td className="py-3.5 px-4 whitespace-nowrap text-slate-400">
+                    <td className="py-3.5 px-4 whitespace-nowrap text-text-secondary">
                       <div className="flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5 text-slate-500" />
+                        <Clock className="w-3.5 h-3.5 text-text-secondary" />
                         <span>{new Date(rec.created_at).toLocaleString()}</span>
                       </div>
                     </td>
@@ -254,7 +254,7 @@ export default function AuditPage() {
                     <td className="py-3.5 px-4 whitespace-nowrap font-bold">
                       <Link
                         href={`/incident/${rec.incident_id}`}
-                        className="inline-flex items-center gap-1 text-amber-400 hover:text-amber-300 underline"
+                        className="inline-flex items-center gap-1 text-accent-DEFAULT hover:text-accent-DEFAULT underline"
                       >
                         <span>{rec.incident_id.substring(0, 8)}</span>
                         <ExternalLink className="w-3 h-3" />
@@ -285,13 +285,13 @@ export default function AuditPage() {
                     </td>
 
                     {/* Reason */}
-                    <td className="py-3.5 px-4 text-slate-300 max-w-xs truncate" title={rec.reason}>
+                    <td className="py-3.5 px-4 text-text-secondary max-w-xs truncate" title={rec.reason}>
                       {rec.reason || "No explicit reason specified"}
                     </td>
 
                     {/* Policy Version */}
-                    <td className="py-3.5 px-4 whitespace-nowrap text-slate-500">
-                      <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700 text-[11px]">
+                    <td className="py-3.5 px-4 whitespace-nowrap text-text-secondary">
+                      <span className="px-2 py-0.5 rounded bg-bg-card border border-border-subtle text-[11px]">
                         {rec.policy_version || "v2.1-deterministic"}
                       </span>
                     </td>

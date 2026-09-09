@@ -1,31 +1,30 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'class',
   content: [
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './lib/**/*.{js,ts,jsx,tsx,mdx}',
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
-        background: '#0f172a',
-        foreground: '#f8fafc',
-        slate: {
-          900: '#0f172a',
-          800: '#1e293b',
-          700: '#334155',
-          600: '#475569',
+        bg: {
+          main: '#0B0E14',
+          card: '#121824',
+          hover: '#161D2A',
         },
-        warning: '#f59e0b',
-        critical: '#ef4444',
-        resolved: '#22c55e',
-        emergency: '#dc2626',
-      },
-      animation: {
-        'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-      },
+        border: {
+          subtle: '#1F293D',
+        },
+        text: {
+          primary: '#FFFFFF',
+          secondary: '#8A94A6',
+        },
+        accent: {
+          DEFAULT: '#6366F1',
+          indigo: '#4F46E5',
+        }
+      }
     },
   },
   plugins: [],
-};
+}

@@ -26,10 +26,10 @@ interface CrashRateChartProps {
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-slate-900/80 backdrop-blur-md border border-amber-500/30 p-3 rounded-xl shadow-lg shadow-amber-500/10">
-        <p className="text-slate-300 text-xs font-mono mb-1">{label}</p>
-        <p className="text-amber-400 font-bold text-sm">
-          {payload[0].value} <span className="text-slate-400 text-xs font-normal">Crashes</span>
+      <div className="bg-bg-main/80 backdrop-blur-md border border-accent-DEFAULT/30 p-3 rounded-xl shadow-lg shadow-amber-500/10">
+        <p className="text-text-secondary text-xs font-mono mb-1">{label}</p>
+        <p className="text-accent-DEFAULT font-bold text-sm">
+          {payload[0].value} <span className="text-text-secondary text-xs font-normal">Crashes</span>
         </p>
       </div>
     );
@@ -40,7 +40,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 export const CrashRateChart: React.FC<CrashRateChartProps> = ({ data = [] }) => {
   if (!data || data.length === 0) {
     return (
-      <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-8 text-center text-slate-400 font-mono text-sm shadow-inner">
+      <div className="bg-bg-main/50 border border-border-subtle rounded-xl p-8 text-center text-text-secondary font-mono text-sm shadow-inner">
         No crash rate data recorded for this time window.
       </div>
     );
@@ -53,7 +53,7 @@ export const CrashRateChart: React.FC<CrashRateChartProps> = ({ data = [] }) => 
   }));
 
   return (
-    <div className="bg-slate-900/40 backdrop-blur-sm border border-slate-800 rounded-xl p-5 shadow-xl space-y-2 transition-all hover:border-slate-700">
+    <div className="bg-bg-main/40 backdrop-blur-sm border border-border-subtle rounded-xl p-5 shadow-xl space-y-2 transition-all hover:border-border-subtle">
       <div className="h-64 w-full mt-2">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={formattedData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>

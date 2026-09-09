@@ -62,14 +62,14 @@ export const Timeline: React.FC<TimelineProps> = ({
     if (typeUpper === "PROPOSED") return <FileEdit className="w-4 h-4 text-indigo-400" />;
     if (typeUpper === "VERIFIED") return <CheckCircle className="w-4 h-4 text-emerald-400" />;
     if (typeUpper.includes("VERIFICATION_FAILED") || typeUpper.includes("VERIFICATION_FAILED_RETRYING") || typeUpper.includes("RETRYING"))
-      return <RotateCcw className="w-4 h-4 text-amber-400 animate-spin-slow" />;
-    if (typeUpper === "DECIDED" || typeUpper === "GOVERNANCE_DECISION") return <Gavel className="w-4 h-4 text-yellow-400" />;
+      return <RotateCcw className="w-4 h-4 text-accent-DEFAULT animate-spin-slow" />;
+    if (typeUpper === "DECIDED" || typeUpper === "GOVERNANCE_DECISION") return <Gavel className="w-4 h-4 text-accent-DEFAULT" />;
     if (typeUpper === "PR_CREATED") return <GitPullRequest className="w-4 h-4 text-purple-400" />;
-    if (typeUpper === "ALERT_SENT" || typeUpper === "CRASH_ALERT") return <Bell className="w-4 h-4 text-amber-400" />;
+    if (typeUpper === "ALERT_SENT" || typeUpper === "CRASH_ALERT") return <Bell className="w-4 h-4 text-accent-DEFAULT" />;
     if (typeUpper === "EMERGENCY_FLAGGED") return <AlertTriangle className="w-4 h-4 text-rose-400 animate-bounce" />;
     if (typeUpper === "ROLLBACK_TRIGGERED" || typeUpper === "ROLLED_BACK") return <Undo2 className="w-4 h-4 text-rose-300" />;
     if (typeUpper === "PIPELINE_ERROR") return <AlertOctagon className="w-4 h-4 text-rose-500" />;
-    return <Clock className="w-4 h-4 text-slate-400" />;
+    return <Clock className="w-4 h-4 text-text-secondary" />;
   };
 
   // Map events to styled timeline items
@@ -80,13 +80,13 @@ export const Timeline: React.FC<TimelineProps> = ({
 
     let title = ev.event_type;
     let description = "";
-    let badgeStyle = "bg-slate-800 border-slate-700 text-slate-300";
-    let iconBg = "bg-slate-900 border-slate-700";
+    let badgeStyle = "bg-bg-card border-border-subtle text-text-secondary";
+    let iconBg = "bg-bg-main border-border-subtle";
 
     if (eventTypeUpper === "INGESTED") {
       title = "🚨 Incident Ingested";
       description = `Crash telemetry captured for service '${payload.service || "pipeline"}' with exit code ${payload.exit_code ?? "137"}`;
-      badgeStyle = "bg-slate-800 text-slate-300 border-slate-700";
+      badgeStyle = "bg-bg-card text-text-secondary border-border-subtle";
     } else if (eventTypeUpper === "TRIAGED") {
       title = "🔍 Triage Completed";
       description = `Classified crash as ${payload.error_type || "UNKNOWN"} (Severity: ${payload.severity || "MEDIUM"})`;
@@ -105,13 +105,13 @@ export const Timeline: React.FC<TimelineProps> = ({
     } else if (eventTypeUpper.endsWith("...")) {
       title = `⏳ ${ev.event_type}`;
       description = payload.description || "Agent is processing in background...";
-      badgeStyle = "bg-slate-800/80 text-indigo-300 border-indigo-500/40 animate-pulse";
-      iconBg = "bg-slate-900 border-indigo-700";
+      badgeStyle = "bg-bg-card/80 text-indigo-300 border-indigo-500/40 animate-pulse";
+      iconBg = "bg-bg-main border-indigo-700";
     } else if (eventTypeUpper.includes("VERIFICATION_FAILED") || eventTypeUpper === "VERIFICATION_FAILED_RETRYING") {
       title = `🔁 Attempt ${attempt} Failed — Retrying with error context`;
       description = `Deterministic sandbox tests failed. Extracting failure log context to feed back into Attempt #${attempt + 1}`;
-      badgeStyle = "bg-amber-500/20 text-amber-300 border-amber-500/50 font-bold";
-      iconBg = "bg-amber-950 border-amber-600";
+      badgeStyle = "bg-accent-DEFAULT/20 text-accent-DEFAULT border-accent-DEFAULT/50 font-bold";
+      iconBg = "bg-accent-DEFAULT border-accent-DEFAULT";
     } else if (eventTypeUpper === "VERIFIED") {
       title = attempt > 1 ? `Attempt ${attempt} Passed ✅` : "🧪 Sandbox Verification Passed ✅";
       description = `All deterministic tests passed cleanly on Attempt #${attempt}. Code patch validated for governance.`;
@@ -152,23 +152,23 @@ export const Timeline: React.FC<TimelineProps> = ({
   });
 
   return (
-    <div className="bg-slate-800/80 backdrop-blur border border-slate-700/60 rounded-xl p-6 shadow-xl">
-      <div className="flex items-center justify-between border-b border-slate-700/60 pb-4 mb-6">
-        <h2 className="text-xl font-bold text-slate-100 flex items-center gap-2">
-          <ShieldCheck className="w-5 h-5 text-amber-400" />
+    <div className="bg-bg-card/80 backdrop-blur border border-border-subtle/60 rounded-xl p-6 shadow-xl">
+      <div className="flex items-center justify-between border-b border-border-subtle/60 pb-4 mb-6">
+        <h2 className="text-xl font-bold text-text-primary flex items-center gap-2">
+          <ShieldCheck className="w-5 h-5 text-accent-DEFAULT" />
           Incident Timeline & Audit Trail
         </h2>
-        <span className="text-xs font-mono text-slate-400 bg-slate-900 px-3 py-1 rounded-full border border-slate-700">
+        <span className="text-xs font-mono text-text-secondary bg-bg-main px-3 py-1 rounded-full border border-border-subtle">
           {events.length} Recorded Events
         </span>
       </div>
 
       {timelineNodes.length === 0 ? (
-        <p className="text-sm text-slate-400 py-8 text-center font-mono">
+        <p className="text-sm text-text-secondary py-8 text-center font-mono">
           No audit timeline events recorded for this incident yet.
         </p>
       ) : (
-        <div className="relative border-l-2 border-slate-700 ml-4 space-y-8 my-2">
+        <div className="relative border-l-2 border-border-subtle ml-4 space-y-8 my-2">
           {timelineNodes.map((node) => (
             <div key={node.id} className="relative pl-8 group">
               {/* Node Icon Circle */}
@@ -179,18 +179,18 @@ export const Timeline: React.FC<TimelineProps> = ({
               </div>
 
               {/* Event Card Content */}
-              <div className="bg-slate-900/90 rounded-xl p-4 border border-slate-800/80 space-y-2 shadow-md hover:border-slate-700 transition-colors">
+              <div className="bg-bg-main/90 rounded-xl p-4 border border-border-subtle/80 space-y-2 shadow-md hover:border-border-subtle transition-colors">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className={`text-xs font-semibold px-3 py-1 rounded-full border ${node.badgeStyle}`}>
                     {node.title}
                   </span>
-                  <span className="text-xs text-slate-400 font-mono">
+                  <span className="text-xs text-text-secondary font-mono">
                     {new Date(node.timestamp).toLocaleString()}
                   </span>
                 </div>
 
                 {node.description && (
-                  <p className="text-sm text-slate-300 font-medium leading-relaxed">
+                  <p className="text-sm text-text-secondary font-medium leading-relaxed">
                     {node.description}
                   </p>
                 )}
@@ -200,7 +200,7 @@ export const Timeline: React.FC<TimelineProps> = ({
                     href={node.payload.pr_url}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs text-amber-400 hover:text-amber-300 font-mono underline pt-1"
+                    className="inline-flex items-center gap-1.5 text-xs text-accent-DEFAULT hover:text-accent-DEFAULT font-mono underline pt-1"
                   >
                     <GitPullRequest className="w-3.5 h-3.5" />
                     Open Pull Request: {node.payload.pr_url}

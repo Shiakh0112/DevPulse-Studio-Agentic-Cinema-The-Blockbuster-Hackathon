@@ -110,24 +110,24 @@ export default function IncidentFeedPage() {
   }, [incidents, selectedProject, selectedService, selectedSeverity, selectedStatus, sortOrder, showEmergenciesFirst]);
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 p-6 md:p-10">
+    <div className="min-h-screen bg-bg-main text-text-primary p-6 md:p-10">
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Header Title */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-6">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border-subtle pb-6">
           <div>
-            <h1 className="text-3xl font-bold text-slate-100 tracking-tight flex items-center gap-3">
+            <h1 className="text-3xl font-bold text-text-primary tracking-tight flex items-center gap-3">
               <span className="inline-block w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
               Live Incident Feed
             </h1>
-            <p className="text-sm text-slate-400 mt-1">
+            <p className="text-sm text-text-secondary mt-1">
               Real-time automated incident telemetry, AI triage state, self-healing loop retries, and governance updates.
             </p>
           </div>
-          <div className="flex items-center space-x-3 text-xs text-slate-400 bg-slate-800/80 px-4 py-2 rounded-lg border border-slate-700">
+          <div className="flex items-center space-x-3 text-xs text-text-secondary bg-bg-card/80 px-4 py-2 rounded-lg border border-border-subtle">
             <span>Auto-Refreshing (5s)</span>
             <button
               onClick={fetchIncidents}
-              className="text-amber-400 hover:text-amber-300 font-semibold underline ml-2 flex items-center gap-1"
+              className="text-accent-DEFAULT hover:text-accent-DEFAULT font-semibold underline ml-2 flex items-center gap-1"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               Refresh Now
@@ -136,7 +136,7 @@ export default function IncidentFeedPage() {
         </div>
 
         {/* Filters & Emergency Toggle Bar */}
-        <div className="bg-slate-800/60 backdrop-blur border border-slate-700/60 rounded-xl p-4 sm:p-5 space-y-4">
+        <div className="bg-bg-card/60 backdrop-blur border border-border-subtle/60 rounded-xl p-4 sm:p-5 space-y-4">
           {/* Mobile Filter Toggle Button (< md) */}
           <div className="md:hidden">
             <button
@@ -144,21 +144,21 @@ export default function IncidentFeedPage() {
               onClick={() => setMobileFiltersOpen((prev) => !prev)}
               className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer shadow-md ${
                 mobileFiltersOpen || activeFiltersCount > 0
-                  ? "bg-slate-900 border-amber-500/80 text-amber-300 ring-2 ring-amber-500/20 shadow-amber-500/10"
-                  : "bg-slate-950/80 border-slate-700/60 text-slate-200 hover:border-amber-500/50 hover:bg-slate-900"
+                  ? "bg-bg-main border-accent-DEFAULT/80 text-accent-DEFAULT ring-2 ring-amber-500/20 shadow-amber-500/10"
+                  : "bg-bg-main/80 border-border-subtle/60 text-text-primary hover:border-accent-DEFAULT/50 hover:bg-bg-main"
               }`}
             >
               <div className="flex items-center gap-2">
-                <Filter className="w-4 h-4 text-amber-400" />
+                <Filter className="w-4 h-4 text-accent-DEFAULT" />
                 <span>Filter & Sort Controls</span>
                 {activeFiltersCount > 0 && (
-                  <span className="px-2 py-0.5 text-[10px] rounded-full bg-amber-500 text-slate-950 font-bold font-mono">
+                  <span className="px-2 py-0.5 text-[10px] rounded-full bg-accent-DEFAULT text-slate-950 font-bold font-mono">
                     {activeFiltersCount} ACTIVE
                   </span>
                 )}
               </div>
               <ChevronDown
-                className={`w-4 h-4 text-amber-400 transition-transform duration-200 ${
+                className={`w-4 h-4 text-accent-DEFAULT transition-transform duration-200 ${
                   mobileFiltersOpen ? "rotate-180" : ""
                 }`}
               />
@@ -235,22 +235,22 @@ export default function IncidentFeedPage() {
           </div>
 
           {/* Show Emergencies First Toggle */}
-          <div className="pt-2 border-t border-slate-700/60 flex items-center justify-between">
+          <div className="pt-2 border-t border-border-subtle/60 flex items-center justify-between">
             <button
               onClick={() => setShowEmergenciesFirst(!showEmergenciesFirst)}
               className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono transition-all cursor-pointer ${
                 showEmergenciesFirst
                   ? "bg-rose-950 text-rose-300 border border-rose-600 shadow-md shadow-rose-950/50"
-                  : "bg-slate-900 text-slate-400 border border-slate-700 hover:text-slate-200"
+                  : "bg-bg-main text-text-secondary border border-border-subtle hover:text-text-primary"
               }`}
             >
-              <AlertOctagon className={`w-4 h-4 ${showEmergenciesFirst ? "text-rose-400 animate-pulse" : "text-slate-500"}`} />
+              <AlertOctagon className={`w-4 h-4 ${showEmergenciesFirst ? "text-rose-400 animate-pulse" : "text-text-secondary"}`} />
               <span>Show Emergencies First</span>
-              <span className={`px-1.5 py-0.5 text-[10px] rounded ${showEmergenciesFirst ? "bg-rose-900 text-white" : "bg-slate-800 text-slate-400"}`}>
+              <span className={`px-1.5 py-0.5 text-[10px] rounded ${showEmergenciesFirst ? "bg-rose-900 text-white" : "bg-bg-card text-text-secondary"}`}>
                 {showEmergenciesFirst ? "ON" : "OFF"}
               </span>
             </button>
-            <span className="text-xs text-slate-400 font-mono">
+            <span className="text-xs text-text-secondary font-mono">
               Showing {filteredIncidents.length} of {incidents.length} Recorded Incidents
             </span>
           </div>
@@ -258,8 +258,8 @@ export default function IncidentFeedPage() {
 
         {/* Content Area */}
         {loading && incidents.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 text-slate-400 space-y-4">
-            <div className="w-8 h-8 border-4 border-amber-400 border-t-transparent rounded-full animate-spin"></div>
+          <div className="flex flex-col items-center justify-center py-20 text-text-secondary space-y-4">
+            <div className="w-8 h-8 border-4 border-accent-DEFAULT border-t-transparent rounded-full animate-spin"></div>
             <p>Loading live incident stream...</p>
           </div>
         ) : error ? (
@@ -268,26 +268,26 @@ export default function IncidentFeedPage() {
           </div>
         ) : filteredIncidents.length === 0 ? (
           /* Proper Empty-State UI with Inbox Icon and Code Snippet */
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-12 text-center max-w-2xl mx-auto space-y-5 shadow-2xl">
-            <div className="w-16 h-16 bg-slate-800/80 border border-slate-700 text-amber-400 rounded-2xl mx-auto flex items-center justify-center shadow-lg">
+          <div className="bg-bg-main border border-border-subtle rounded-2xl p-12 text-center max-w-2xl mx-auto space-y-5 shadow-2xl">
+            <div className="w-16 h-16 bg-bg-card/80 border border-border-subtle text-accent-DEFAULT rounded-2xl mx-auto flex items-center justify-center shadow-lg">
               <Inbox className="w-8 h-8" />
             </div>
             <div className="space-y-2">
-              <h3 className="text-xl font-bold text-slate-100">
+              <h3 className="text-xl font-bold text-text-primary">
                 No incidents yet — trigger a test crash using demo/simulate_crash.sh to see the pipeline in action
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-text-secondary">
                 Run the simulation script or trigger an synthetic pipeline exception to observe live AI triage, self-healing, and governance.
               </p>
             </div>
 
             {/* Code Snippet Box */}
-            <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 text-left space-y-2 shadow-inner">
-              <div className="flex items-center gap-2 text-xs font-mono text-slate-400 border-b border-slate-800 pb-2">
-                <Terminal className="w-4 h-4 text-amber-400" />
+            <div className="bg-bg-main border border-border-subtle rounded-xl p-4 text-left space-y-2 shadow-inner">
+              <div className="flex items-center gap-2 text-xs font-mono text-text-secondary border-b border-border-subtle pb-2">
+                <Terminal className="w-4 h-4 text-accent-DEFAULT" />
                 <span>Command to trigger synthetic crash:</span>
               </div>
-              <pre className="font-mono text-xs text-amber-300 overflow-x-auto whitespace-pre pt-1">
+              <pre className="font-mono text-xs text-accent-DEFAULT overflow-x-auto whitespace-pre pt-1">
                 demo/simulate_crash.sh
               </pre>
             </div>
