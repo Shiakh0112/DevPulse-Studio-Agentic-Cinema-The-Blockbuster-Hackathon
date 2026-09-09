@@ -29,7 +29,7 @@ def run_triage_agent(incident_data: dict) -> dict:
             client = genai.Client(api_key=api_key)
             prompt = f"Analyze this incident and classify error_type and severity. Output JSON only. Incident: {json.dumps(incident_data)}"
             response = client.models.generate_content(
-                model="gemini-3.6-flash",
+                model="gemini-1.5-flash",
                 contents=prompt
             )
             text = response.text.replace('```json', '').replace('```', '').strip()

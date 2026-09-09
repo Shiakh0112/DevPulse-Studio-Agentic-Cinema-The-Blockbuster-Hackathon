@@ -32,7 +32,7 @@ def run_fix_proposal_agent(incident: dict, diagnosis: dict, attempt_number: int,
             if retry_context:
                 prompt += f"\n\nCRITICAL: Previous attempt failed! Analyze this failure log and provide a DIFFERENT fix: {json.dumps(retry_context)}"
             response = client.models.generate_content(
-                model="gemini-3.6-flash",
+                model="gemini-1.5-flash",
                 contents=prompt
             )
             text = response.text.replace('```json', '').replace('```', '').strip()

@@ -29,7 +29,7 @@ def run_diagnose_agent(incident_data: dict, triage_result: dict) -> dict:
             client = genai.Client(api_key=api_key)
             prompt = f"Diagnose root cause. Output JSON with 'fix_strategy_type' and 'hypothesis'. Data: {json.dumps(incident_data)}"
             response = client.models.generate_content(
-                model="gemini-3.6-flash",
+                model="gemini-1.5-flash",
                 contents=prompt
             )
             text = response.text.replace('```json', '').replace('```', '').strip()
