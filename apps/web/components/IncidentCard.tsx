@@ -11,13 +11,23 @@ interface IncidentCardProps {
 
 function getRelativeTimeString(dateInput?: string | Date): string {
   if (!dateInput) return "just now";
-  const date = typeof dateInput === "string" ? new Date(dateInput) : dateInput;
+  let date: Date;
+  if (typeof dateInput === "string") {
+    // If ISO string lacks timezone 'Z' or offset, append 'Z' so JS parses as UTC
+    let parseable = dateInput.trim();
+    if (!parseable.endsWith("Z") && !parseable.includes("+") && !parseable.includes("-") && parseable.includes("T")) {
+      parseable += "Z";
+    }
+    date = new Date(parseable);
+  } else {
+    date = dateInput;
+  }
   if (isNaN(date.getTime())) return "just now";
 
   const now = new Date();
   const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
-  if (diffInSeconds < 10) return "just now";
+  if (diffInSeconds < 0 || diffInSeconds < 10) return "just now";
   if (diffInSeconds < 60) return `${diffInSeconds}s ago`;
   const minutes = Math.floor(diffInSeconds / 60);
   if (minutes < 60) return `${minutes}m ago`;
