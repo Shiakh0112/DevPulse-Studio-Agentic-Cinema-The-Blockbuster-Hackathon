@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getIncidents } from "@/lib/clickhouseClient";
+import { getIncidents, getIncidentEvents } from "@/lib/clickhouseClient";
 
 export const dynamic = "force-dynamic";
 
