@@ -56,6 +56,7 @@ export const Timeline: React.FC<TimelineProps> = ({
   // Helper to render Lucide icon per event type
   const getEventIcon = (eventType: string) => {
     const typeUpper = eventType.toUpperCase();
+    if (typeUpper.endsWith("...")) return <div className="w-4 h-4 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin" />;
     if (typeUpper === "TRIAGED") return <Search className="w-4 h-4 text-blue-400" />;
     if (typeUpper === "DIAGNOSED") return <Stethoscope className="w-4 h-4 text-cyan-400" />;
     if (typeUpper === "PROPOSED") return <FileEdit className="w-4 h-4 text-indigo-400" />;
@@ -101,6 +102,11 @@ export const Timeline: React.FC<TimelineProps> = ({
       description = `Generated ${payload.change_type || "CONFIG"} patch for file '${payload.file_path || "config.yaml"}' (Confidence: ${payload.confidence || 0.88}, Risk: ${payload.risk || "LOW"})`;
       badgeStyle = "bg-indigo-500/20 text-indigo-400 border-indigo-500/40";
       iconBg = "bg-indigo-950 border-indigo-700";
+    } else if (eventTypeUpper.endsWith("...")) {
+      title = `⏳ ${ev.event_type}`;
+      description = payload.description || "Agent is processing in background...";
+      badgeStyle = "bg-slate-800/80 text-indigo-300 border-indigo-500/40 animate-pulse";
+      iconBg = "bg-slate-900 border-indigo-700";
     } else if (eventTypeUpper.includes("VERIFICATION_FAILED") || eventTypeUpper === "VERIFICATION_FAILED_RETRYING") {
       title = `🔁 Attempt ${attempt} Failed — Retrying with error context`;
       description = `Deterministic sandbox tests failed. Extracting failure log context to feed back into Attempt #${attempt + 1}`;

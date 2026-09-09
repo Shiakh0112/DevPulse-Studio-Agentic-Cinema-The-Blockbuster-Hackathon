@@ -63,6 +63,15 @@ def run_fix_and_verify_loop(incident: Dict[str, Any], diagnosis: Dict[str, Any])
 
     while attempt <= 3:
         # a. Call Fix Proposal Agent with current attempt number & retry context
+        import uuid
+        try:
+            mcp_tool.insert_row("incident_events", {
+                "event_id": str(uuid.uuid4()),
+                "incident_id": incident_id,
+                "event_type": f"GENERATING_FIX_PROPOSAL_ATTEMPT_{attempt}...",
+                "payload": json.dumps({"attempt": attempt, "description": f"Agent is drafting patch proposal #{attempt}..."})
+            })
+        except: pass
         proposal = run_fix_proposal_agent(
             incident=incident,
             diagnosis=diagnosis,
@@ -71,6 +80,14 @@ def run_fix_and_verify_loop(incident: Dict[str, Any], diagnosis: Dict[str, Any])
         )
 
         # b. Call Verification Agent for deterministic sandbox testing
+        try:
+            mcp_tool.insert_row("incident_events", {
+                "event_id": str(uuid.uuid4()),
+                "incident_id": incident_id,
+                "event_type": f"SANDBOX_VERIFICATION_ATTEMPT_{attempt}...",
+                "payload": json.dumps({"attempt": attempt, "description": f"Running deterministic validation sandbox on Attempt #{attempt}..."})
+            })
+        except: pass
         verification_result = run_verification_agent(
             proposal=proposal,
             incident=incident,

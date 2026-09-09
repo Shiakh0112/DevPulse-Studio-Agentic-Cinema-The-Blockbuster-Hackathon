@@ -128,11 +128,27 @@ def run_pipeline(incident_id: str, payload: dict = None) -> Dict[str, Any]:
 
         # STEP 2: Triage Agent (Multimodal Vision + Taxonomy Classification)
         log_agent("Orchestrator", "Run Triage Agent (Step 2/5)", "Analyzing incident telemetry & visual artifacts", "in_progress")
+        try:
+            mcp_tool.insert_row("incident_events", {
+                "event_id": str(uuid.uuid4()),
+                "incident_id": incident_id,
+                "event_type": "TRIAGING...",
+                "payload": json.dumps({"description": "Analyzing incident telemetry & visual artifacts"})
+            })
+        except: pass
         triage_result = run_triage_agent(incident_data)
         log_agent("Orchestrator", "Triage Completed", f"Classification: {triage_result.get('error_type')} / {triage_result.get('severity')}", "success")
 
         # STEP 3: Diagnose Agent (Empirical Root Cause Analysis & Strategy Selection)
         log_agent("Orchestrator", "Run Diagnose Agent (Step 3/5)", "Formulating evidence-backed root cause hypothesis", "in_progress")
+        try:
+            mcp_tool.insert_row("incident_events", {
+                "event_id": str(uuid.uuid4()),
+                "incident_id": incident_id,
+                "event_type": "DIAGNOSING...",
+                "payload": json.dumps({"description": "Formulating empirical root cause hypothesis"})
+            })
+        except: pass
         diagnosis_result = run_diagnose_agent(incident_data, triage_result)
         log_agent("Orchestrator", "Diagnosis Completed", f"Strategy: {diagnosis_result.get('fix_strategy_type')}", "success")
 
@@ -147,6 +163,14 @@ def run_pipeline(incident_id: str, payload: dict = None) -> Dict[str, Any]:
 
         # STEP 5: Governance Agent (Deterministic Policy, Emergency Check, PR & Alerts)
         log_agent("Orchestrator", "Run Governance Agent (Step 5/5)", "Evaluating safety policies & emergency rollback guardrails", "in_progress")
+        try:
+            mcp_tool.insert_row("incident_events", {
+                "event_id": str(uuid.uuid4()),
+                "incident_id": incident_id,
+                "event_type": "EVALUATING_GOVERNANCE...",
+                "payload": json.dumps({"description": "Checking safety policies & emergency rollback guardrails"})
+            })
+        except: pass
         governance_result = run_governance_agent(incident_data, final_proposal, final_verification)
         is_emergency = governance_result.get("is_emergency", False)
         decision = governance_result.get("decision", "NEEDS_REVIEW")
