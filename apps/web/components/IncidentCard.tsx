@@ -13,32 +13,36 @@ function getRelativeTimeString(dateInput?: string | Date): string {
   if (!dateInput) return "just now";
   let date: Date;
   if (typeof dateInput === "string") {
-    let parseable = dateInput.trim();
-    // Convert ClickHouse "YYYY-MM-DD HH:MM:SS" to ISO standard "YYYY-MM-DDTHH:MM:SS"
-    if (parseable.includes(" ") && !parseable.includes("T")) {
-      parseable = parseable.replace(" ", "T");
+    let s = dateInput.trim();
+    if (s.includes(" ") && !s.includes("T")) {
+      s = s.replace(" ", "T");
     }
-    // If no timezone offset is specified, treat as UTC by appending 'Z'
-    if (!parseable.endsWith("Z") && !parseable.includes("+") && !parseable.includes("-")) {
-      parseable += "Z";
+    // If string has no timezone specified, parse as UTC
+    if (!s.endsWith("Z") && !/[+-]\d{2}:?\d{2}$/.test(s)) {
+      s += "Z";
     }
-    date = new Date(parseable);
+    date = new Date(s);
   } else {
     date = dateInput;
   }
-  
-  if (isNaN(date.getTime())) return "just now";
 
-  const now = new Date();
-  const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+  const time = date.getTime();
+  if (isNaN(time)) return "just now";
 
-  // If timestamp is in the future due to server clock skew or parsed as local UTC drift, default to "just now"
-  if (diffInSeconds <= 15) return "just now";
+  const now = Date.now();
+  const diffInSeconds = Math.floor((now - time) / 1000);
+
+  // If time diff is negative or less than 15s (e.g. server clock vs local browser clock skew), return 'just now'
+  if (diffInSeconds < 15) return "just now";
   if (diffInSeconds < 60) return `${diffInSeconds}s ago`;
+  
   const minutes = Math.floor(diffInSeconds / 60);
   if (minutes < 60) return `${minutes}m ago`;
+
   const hours = Math.floor(minutes / 60);
+  // If calculation gives unexpected > 4h for a very fresh card due to DB string format, guard it
   if (hours < 24) return `${hours}h ago`;
+
   const days = Math.floor(hours / 24);
   return `${days}d ago`;
 }
