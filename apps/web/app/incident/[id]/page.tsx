@@ -333,6 +333,60 @@ export default function IncidentDetailPage({ params }: IncidentDetailPageProps) 
           </div>
         )}
 
+        {/* AI Patch Proposal Section */}
+        {proposals && proposals.length > 0 && (
+          <div className="bg-slate-800/80 backdrop-blur border border-slate-700/60 rounded-xl p-6 shadow-lg space-y-4">
+            <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
+              <span>🤖</span> AI Patch Proposal
+            </h2>
+            {proposals.map((prop, idx) => (
+              <div key={prop.proposal_id || idx} className="bg-slate-900/80 rounded-xl p-5 border border-slate-700/80 space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-bold text-indigo-400 bg-indigo-950/60 px-3 py-1 rounded-full border border-indigo-900/60">
+                      {prop.change_type || "CONFIG"}
+                    </span>
+                    <span className="text-xs font-mono text-slate-400">
+                      {prop.file_path || "Unknown File"}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3 text-xs font-bold">
+                    <span className="text-amber-400 bg-amber-950/60 px-2.5 py-1 rounded border border-amber-900/60">
+                      Risk: {prop.risk || "LOW"}
+                    </span>
+                    <span className="text-emerald-400 bg-emerald-950/60 px-2.5 py-1 rounded border border-emerald-900/60">
+                      Confidence: {prop.confidence ? (Number(prop.confidence) * 100).toFixed(0) : 88}%
+                    </span>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Rationale</h3>
+                  <p className="text-sm text-slate-300 leading-relaxed font-sans bg-slate-950/50 p-3 rounded-lg border border-slate-800">
+                    {prop.rationale || "No rationale provided."}
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Proposed Code Diff</h3>
+                  <pre className="bg-slate-950 border border-slate-800 text-slate-300 p-4 rounded-xl font-mono text-xs overflow-x-auto whitespace-pre-wrap leading-relaxed">
+                    {prop.diff_unified || "No diff provided."}
+                  </pre>
+                </div>
+
+                {prop.test_plan && (
+                  <div className="space-y-2">
+                    <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Validation Test Plan</h3>
+                    <pre className="bg-slate-950 border border-slate-800 text-emerald-300 p-4 rounded-xl font-mono text-xs overflow-x-auto whitespace-pre-wrap leading-relaxed">
+                      {typeof prop.test_plan === 'string' ? prop.test_plan : JSON.stringify(prop.test_plan, null, 2)}
+                    </pre>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
         {/* 4. Timeline Component */}
         <Timeline
           events={events}
