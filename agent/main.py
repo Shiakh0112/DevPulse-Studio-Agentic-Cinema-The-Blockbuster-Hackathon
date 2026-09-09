@@ -20,8 +20,10 @@ except ImportError:
     from tools.clickhouse_mcp_tool import McpClickHouseTool
     from tools.rollback_helper import build_rollback_event
     from orchestrator import run_pipeline
-
-from mcp_middleware import app as mcp_app
+from mcp_middleware import validate_query, CLICKHOUSE_URL
+import httpx
+from fastapi.responses import JSONResponse
+from fastapi import Request
 
 # Load environment variables
 load_dotenv()
@@ -50,8 +52,46 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mount MCP Middleware on the same server for Cloud Deployment (Railway)
-app.mount("/mcp", mcp_app)
+# Integrated MCP Route to bypass Railway Mount/Routing bugs
+@app.post("/mcp/query")
+async def integrated_mcp_query(request: Request):
+    try:
+        body = await request.json()
+        query = body.get("query", "")
+        is_valid, msg = validate_query(query)
+        if not is_valid:
+            return JSONResponse(status_code=403, content={"error": msg})
+
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            params = {
+                "user": os.getenv("CLICKHOUSE_USER", "devpulse_web"),
+                "password": os.getenv("CLICKHOUSE_PASSWORD", "devpulse123"),
+            }
+            resp = await client.post(
+                CLICKHOUSE_URL,
+                params=params,
+                content=query.encode("utf-8"),
+                headers={"Content-Type": "text/plain"},
+            )
+
+            if resp.status_code == 200:
+                text = resp.text.strip()
+                if not text:
+                    return {"result": "OK", "rows_affected": 0}
+                try:
+                    import json
+                    lines = [l for l in text.split("\n") if l.strip()]
+                    rows = [json.loads(l) for l in lines]
+                    return rows if len(rows) > 1 else rows[0] if rows else {"result": "OK"}
+                except Exception:
+                    return {"result": text}
+            else:
+                return JSONResponse(status_code=resp.status_code, content={"error": resp.text.strip()})
+
+    except httpx.ConnectError as e:
+        return JSONResponse(status_code=502, content={"error": str(e)})
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"error": str(e)})
 
 
 class TriggerPipelineRequest(BaseModel):
