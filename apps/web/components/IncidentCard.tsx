@@ -29,23 +29,23 @@ function getRelativeTimeString(dateInput?: string | Date): string {
 
 export const IncidentCard: React.FC<IncidentCardProps> = ({ incident, isEmergency }) => {
   const severityColors: Record<string, string> = {
-    LOW: "bg-emerald-500/20 text-emerald-400 border-emerald-500/40",
-    MEDIUM: "bg-yellow-500/20 text-yellow-400 border-yellow-500/40",
-    HIGH: "bg-amber-500/20 text-amber-400 border-amber-500/40",
-    CRITICAL: "bg-rose-500/20 text-rose-400 border-rose-500/40",
+    LOW: "bg-[#1E3A5F] text-[#3B82F6] border-[#27272A]",
+    MEDIUM: "bg-[#451A03] text-[#F59E0B] border-[#27272A]",
+    HIGH: "bg-[#450A0A] text-[#EF4444] border-[#27272A]",
+    CRITICAL: "bg-[#450A0A] text-[#EF4444] border-[#EF4444] shadow-[0_0_10px_rgba(239,68,68,0.3)]",
   };
 
   const statusColors: Record<string, string> = {
-    RESOLVED: "bg-emerald-500/20 text-emerald-400 border-emerald-500/40",
-    AUTO_APPROVE: "bg-emerald-500/20 text-emerald-400 border-emerald-500/40",
-    VERIFIED: "bg-sky-500/20 text-sky-400 border-sky-500/40",
-    PROPOSED: "bg-indigo-500/20 text-indigo-400 border-indigo-500/40",
-    DIAGNOSED: "bg-cyan-500/20 text-cyan-400 border-cyan-500/40",
-    TRIAGED: "bg-blue-500/20 text-blue-400 border-blue-500/40",
-    NEEDS_REVIEW: "bg-amber-500/20 text-amber-400 border-amber-500/40",
-    REJECTED: "bg-rose-500/20 text-rose-400 border-rose-500/40",
-    ROLLED_BACK: "bg-rose-950/90 text-rose-400 border-rose-500/80 animate-pulse font-bold shadow-rose-500/20 shadow-lg",
-    PENDING: "bg-slate-500/20 text-slate-400 border-slate-500/40",
+    RESOLVED: "bg-[#064E3B] text-[#22C55E] border-[#27272A]",
+    AUTO_APPROVE: "bg-[#064E3B] text-[#22C55E] border-[#27272A]",
+    VERIFIED: "bg-[#064E3B] text-[#22C55E] border-[#27272A]",
+    PROPOSED: "bg-[#1E3A5F] text-[#3B82F6] border-[#27272A]",
+    DIAGNOSED: "bg-[#1E3A5F] text-[#3B82F6] border-[#27272A]",
+    TRIAGED: "bg-[#1E3A5F] text-[#3B82F6] border-[#27272A]",
+    NEEDS_REVIEW: "bg-[#451A03] text-[#F59E0B] border-[#27272A]",
+    REJECTED: "bg-[#450A0A] text-[#EF4444] border-[#27272A]",
+    ROLLED_BACK: "bg-[#450A0A] text-[#EF4444] border-[#EF4444] animate-pulse font-bold",
+    PENDING: "bg-[#451A03] text-[#F59E0B] border-[#27272A]",
   };
 
   const isEmergencyIncident =
@@ -67,16 +67,16 @@ export const IncidentCard: React.FC<IncidentCardProps> = ({ incident, isEmergenc
   return (
     <Link
       href={`/incident/${incident.incident_id}`}
-      className="block bg-slate-800/80 backdrop-blur border border-slate-700/60 rounded-xl overflow-hidden hover:border-amber-500/50 transition-all shadow-lg hover:shadow-amber-500/10 hover:-translate-y-0.5 group cursor-pointer"
+      className="block block bg-[#111111] border border-[#27272A] rounded-[12px] overflow-hidden hover:border-[#FACC15] transition-all duration-200 shadow-2xl shadow-black/50 hover:shadow-[0_10px_25px_rgba(0,0,0,0.8)] hover:-translate-y-1 group cursor-pointer motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:-translate-y-1"
     >
       {/* Emergency Pulsing Red Banner Strip */}
       {isEmergencyIncident && (
-        <div className="bg-rose-950 text-rose-200 border-b border-rose-600/80 px-4 py-1.5 text-xs font-bold font-mono tracking-wider flex items-center justify-between animate-pulse">
+        <div className="bg-[#450A0A] text-[#FFFFFF] border-b border-[#EF4444] px-4 py-1.5 text-xs font-bold font-mono tracking-wider flex items-center justify-between animate-pulse">
           <span className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+            <span className="w-2 h-2 rounded-full bg-[#EF4444] animate-ping"></span>
             🚨 EMERGENCY — Rollback Available
           </span>
-          <span className="text-[10px] bg-rose-900/90 px-2 py-0.5 rounded text-rose-100 border border-rose-700">
+          <span className="text-[10px] bg-[#450A0A] px-2 py-0.5 rounded text-[#FFFFFF] border border-[#EF4444]">
             AUTO-GUARDRAIL
           </span>
         </div>
@@ -86,10 +86,10 @@ export const IncidentCard: React.FC<IncidentCardProps> = ({ incident, isEmergenc
         {/* Header Badges */}
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <div className="flex items-center space-x-2">
-            <span className="font-semibold text-slate-100 text-base group-hover:text-amber-400 transition-colors">
+            <span className="font-semibold text-[#FFFFFF] text-base group-hover:text-[#FACC15] transition-colors">
               {incident.project || "Unknown Project"}
             </span>
-            <span className="text-xs text-slate-400 bg-slate-900/80 px-2 py-0.5 rounded border border-slate-700/50 font-mono">
+            <span className="text-xs text-[#A1A1AA] bg-[#050505] px-2 py-0.5 rounded border border-[#27272A] font-mono">
               {incident.service || "pipeline"}
             </span>
           </div>
@@ -97,16 +97,16 @@ export const IncidentCard: React.FC<IncidentCardProps> = ({ incident, isEmergenc
           <div className="flex items-center space-x-1.5">
             {/* Retry Badge */}
             {incident.retry_count > 0 && (
-              <span className="text-xs font-semibold px-2 py-0.5 rounded-full border bg-amber-500/20 text-amber-300 border-amber-500/40 flex items-center gap-1">
+              <span className="text-xs font-semibold px-2 py-0.5 rounded-full border bg-[#451A03] text-[#F59E0B] border-[#27272A] flex items-center gap-1">
                 🔁 Retry {incident.retry_count}
               </span>
             )}
             {/* Severity Pill */}
-            <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border ${sevClass}`}>
+            <span className={`text-[11px] font-semibold px-[10px] py-[2px] rounded-full border ${sevClass}`}>
               {incident.severity}
             </span>
             {/* Status Badge (Pulsing Red for ROLLED_BACK) */}
-            <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border ${statusClass}`}>
+            <span className={`text-[11px] font-semibold px-[10px] py-[2px] rounded-full border ${statusClass}`}>
               {incident.status}
             </span>
           </div>
@@ -114,15 +114,15 @@ export const IncidentCard: React.FC<IncidentCardProps> = ({ incident, isEmergenc
 
         {/* Incident ID & Error Type */}
         <div className="mb-3 space-y-1">
-          <div className="flex items-center justify-between text-xs text-slate-400">
-            <span className="font-mono text-slate-300">
+          <div className="flex items-center justify-between text-xs text-[#A1A1AA]">
+            <span className="font-mono text-[#A1A1AA]">
               ID: {incident.incident_id ? incident.incident_id.slice(0, 8) : "N/A"}...
             </span>
-            <span className="text-slate-400">{relativeTime}</span>
+            <span className="text-[#A1A1AA]">{relativeTime}</span>
           </div>
 
           {incident.error_type && (
-            <p className="text-xs font-mono text-amber-400 font-semibold">
+            <p className="text-xs font-mono text-[#FACC15] font-semibold">
               [{incident.error_type}]
             </p>
           )}
@@ -130,19 +130,19 @@ export const IncidentCard: React.FC<IncidentCardProps> = ({ incident, isEmergenc
 
         {/* Stderr Preview */}
         {truncatedStderr && (
-          <div className="mb-4 bg-slate-950/90 rounded-lg p-2.5 border border-slate-800 font-mono text-xs text-slate-300 line-clamp-2">
+          <div className="mb-4 bg-[#1A1A1A] rounded-lg p-2.5 border border-[#27272A] font-mono text-xs text-[#A1A1AA] line-clamp-2">
             {truncatedStderr}
           </div>
         )}
 
         {/* Footer Metrics */}
-        <div className="flex items-center justify-between border-t border-slate-700/40 pt-3 text-xs text-slate-400">
+        <div className="flex items-center justify-between border-t border-[#27272A] pt-3 text-xs text-[#A1A1AA]">
           <div>
-            Exit Code: <code className="text-rose-400 font-mono font-semibold">{incident.exit_code ?? "N/A"}</code>
+            Exit Code: <code className="text-[#EF4444] font-mono font-semibold">{incident.exit_code ?? "N/A"}</code>
           </div>
           <div className="flex items-center space-x-3">
-            <span>Users: <strong className="text-slate-200">{incident.affected_users_estimate || 0}</strong></span>
-            <span className="text-amber-400 font-semibold group-hover:translate-x-1 transition-transform inline-block">
+            <span>Users: <strong className="text-[#FFFFFF]">{incident.affected_users_estimate || 0}</strong></span>
+            <span className="text-[#FACC15] font-semibold group-hover:translate-x-1 transition-transform inline-block">
               View Details →
             </span>
           </div>
