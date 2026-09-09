@@ -46,6 +46,20 @@ export async function GET(
     const events = await getIncidentEvents(incidentId);
     const proposals = await getFixProposals(incidentId);
 
+    // ClickHouse ALTER TABLE ... UPDATE mutations are asynchronous and can be delayed in Cloud.
+    // To ensure real-time UI updates, derive the latest status and retries from the append-only events.
+    if (events && events.length > 0) {
+      const latestEvent = events[events.length - 1];
+      effectiveIncident.status = latestEvent.event_type;
+      
+      const retryEvents = events.filter((e: any) => e.event_type === 'VERIFICATION_FAILED_RETRYING');
+      effectiveIncident.retry_count = retryEvents.length;
+      
+      if (['RESOLVED', 'AUTO_APPROVE'].includes(latestEvent.event_type)) {
+         effectiveIncident.estimated_dev_hours_saved = 2.5;
+      }
+    }
+
     // Fetch verification runs for each proposal
     let verificationRuns: any[] = [];
     if (proposals && proposals.length > 0) {
