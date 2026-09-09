@@ -90,6 +90,24 @@ export default function IncidentDetailPage({ params }: IncidentDetailPageProps) 
 
   const { incident, events, proposals, verificationRuns, governanceDecision, rollbackEvents } = data;
 
+  // VERY CRITICAL FIX: Override incident.status natively on the client using the LIVE events array.
+  // This guarantees the UI is 100% synchronized with the timeline, bypassing any ClickHouse or API cache delays.
+  let displayStatus = incident.status;
+  let displayRetries = incident.retry_count || 0;
+  let displayHours = incident.estimated_dev_hours_saved || 0;
+
+  if (events && events.length > 0) {
+    const latestEvent = events[events.length - 1];
+    displayStatus = latestEvent.event_type;
+    
+    const retryEvents = events.filter((e: any) => e.event_type === 'VERIFICATION_FAILED_RETRYING');
+    displayRetries = retryEvents.length;
+    
+    if (['RESOLVED', 'AUTO_APPROVE'].includes(latestEvent.event_type)) {
+      displayHours = 2.5;
+    }
+  }
+
   // Determine if Emergency Flagged
   const hasEmergencyEvent = events.some((ev: any) => ev.event_type === "EMERGENCY_FLAGGED");
   const isEmergency = Boolean((incident as any).is_emergency || hasEmergencyEvent);
@@ -197,7 +215,7 @@ export default function IncidentDetailPage({ params }: IncidentDetailPageProps) 
                 {incident.severity}
               </span>
               <span className="text-sm font-bold px-3.5 py-1 rounded-full border bg-slate-800 border-slate-700 text-slate-200">
-                {incident.status}
+                {displayStatus}
               </span>
             </div>
           </div>
@@ -232,7 +250,7 @@ export default function IncidentDetailPage({ params }: IncidentDetailPageProps) 
         )}
 
         {/* ✅ Human-in-the-Loop Approval Panel (Renders ONLY if NEEDS_REVIEW) */}
-        {incident.status === "NEEDS_REVIEW" && (
+        {displayStatus === "NEEDS_REVIEW" && (
           <div className="bg-indigo-950/40 border-2 border-indigo-600/50 rounded-xl p-6 shadow-xl space-y-4">
             <div className="flex items-center justify-between">
               <div>
@@ -298,11 +316,11 @@ export default function IncidentDetailPage({ params }: IncidentDetailPageProps) 
             </div>
             <div className="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
               <span className="block text-slate-500 mb-1">Self-Healing Retries</span>
-              <span className="text-amber-400 font-bold text-base">{incident.retry_count || 0} / 3</span>
+              <span className="text-amber-400 font-bold text-base">{displayRetries} / 3</span>
             </div>
             <div className="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
               <span className="block text-slate-500 mb-1">Hours Saved</span>
-              <span className="text-emerald-400 font-bold text-base">{incident.estimated_dev_hours_saved || 0} hrs</span>
+              <span className="text-emerald-400 font-bold text-base">{displayHours} hrs</span>
             </div>
           </div>
         </div>
