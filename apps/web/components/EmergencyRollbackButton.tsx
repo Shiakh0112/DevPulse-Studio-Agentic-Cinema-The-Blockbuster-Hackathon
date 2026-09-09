@@ -101,24 +101,24 @@ export const EmergencyRollbackButton: React.FC<EmergencyRollbackButtonProps> = (
           className={`px-5 py-2.5 rounded-xl font-extrabold text-sm flex items-center gap-2.5 shadow-lg transition-all transform ${
             isAdmin
               ? "bg-rose-600 hover:bg-rose-500 text-white animate-pulse hover:scale-105 active:scale-95 shadow-rose-900/50 border border-rose-400"
-              : "bg-bg-card text-text-secondary border border-border-subtle cursor-not-allowed opacity-60"
+              : "bg-[#121824] text-[#8A94A6] border border-[#1F293D] cursor-not-allowed opacity-60"
           }`}
         >
-          <AlertOctagon className="w-5 h-5 text-accent-DEFAULT animate-spin-slow" />
+          <AlertOctagon className="w-5 h-5 text-[#6366F1] animate-spin-slow" />
           <span>🚨 1-Click Emergency Rollback</span>
         </button>
       </div>
 
       {/* Confirmation Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-bg-main/80 backdrop-blur-md">
-          <div className="bg-bg-main border border-rose-500/60 rounded-2xl p-6 max-w-md w-full shadow-2xl space-y-5 animate-in fade-in zoom-in duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0B0E14]/80 backdrop-blur-md">
+          <div className="bg-[#0B0E14] border border-rose-500/60 rounded-2xl p-6 max-w-md w-full shadow-2xl space-y-5 animate-in fade-in zoom-in duration-200">
             <div className="flex items-center gap-3 border-b border-rose-900/60 pb-3">
               <div className="p-2 bg-rose-950 rounded-lg text-rose-400 border border-rose-800">
                 <ShieldAlert className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-text-primary">
+                <h3 className="text-lg font-bold text-[#FFFFFF]">
                   Confirm Emergency Rollback
                 </h3>
                 <span className="text-xs font-mono text-rose-400">
@@ -127,14 +127,14 @@ export const EmergencyRollbackButton: React.FC<EmergencyRollbackButtonProps> = (
               </div>
             </div>
 
-            <p className="text-sm text-text-secondary leading-relaxed font-medium">
+            <p className="text-sm text-[#8A94A6] leading-relaxed font-medium">
               This will roll back to the previous stable version —{" "}
-              <strong className="text-accent-DEFAULT">{affectedUsers} users</strong> are
+              <strong className="text-[#6366F1]">{affectedUsers} users</strong> are
               currently affected. Confirm?
             </p>
 
-            <div className="bg-bg-main p-3 rounded-lg border border-border-subtle text-xs text-text-secondary space-y-1 font-mono">
-              <div className="text-text-secondary font-semibold">Simulation Parameters:</div>
+            <div className="bg-[#0B0E14] p-3 rounded-lg border border-[#1F293D] text-xs text-[#8A94A6] space-y-1 font-mono">
+              <div className="text-[#8A94A6] font-semibold">Simulation Parameters:</div>
               <div>• Target Version: v1.4.2-stable</div>
               <div>• Triggered By: {activeRole}</div>
               <div>• Action: Immediate Traffic Shift</div>
@@ -144,7 +144,7 @@ export const EmergencyRollbackButton: React.FC<EmergencyRollbackButtonProps> = (
               <button
                 onClick={() => setShowModal(false)}
                 disabled={loading}
-                className="px-4 py-2 bg-bg-card hover:bg-slate-700 text-text-secondary text-xs font-semibold rounded-lg transition-colors"
+                className="px-4 py-2 bg-[#121824] hover:bg-slate-700 text-[#8A94A6] text-xs font-semibold rounded-lg transition-colors"
               >
                 Cancel
               </button>

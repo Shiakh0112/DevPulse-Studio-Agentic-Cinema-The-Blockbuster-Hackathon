@@ -2,177 +2,196 @@
 @import "tailwindcss";
 
 /* ==========================================
-   SMARTPG DESIGN TOKENS
+   SMARTPG DESIGN TOKENS (V4 COMPATIBLE)
    ========================================== */
-:root {
-  --background: #0B0E14;
-  --foreground: #FFFFFF;
-  --card-bg: #121824;
-  --card-border: #1F293D;
-  --card-hover-border: #6366F1;
-  --glow-indigo: 0 0 20px rgba(99, 102, 241, 0.15);
-  --glow-emerald: 0 0 20px rgba(16, 185, 129, 0.15);
-  --glow-rose: 0 0 25px rgba(244, 63, 94, 0.2);
-  --gradient-dark: linear-gradient(135deg, #0B0E14 0%, #121824 100%);
-  --gradient-card: linear-gradient(145deg, #121824 0%, #161D2A 100%);
+@theme {
+  --color-bg-main: #0B0E14;
+  --color-bg-sidebar: #101726;
+  --color-bg-card: #121824;
+  --color-border-subtle: #1F293D;
+  
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #8A94A6;
+  
+  --color-accent-DEFAULT: #6366F1;
+  --color-accent-indigo: #4F46E5;
+  --color-accent-hover: rgba(99, 102, 241, 0.15);
+  
+  --color-status-success: #10B981;
+  --color-status-success-bg: rgba(16, 185, 129, 0.1);
+  --color-status-alert: #D97706;
+  --color-status-alert-bg: rgba(217, 119, 6, 0.1);
+  --color-status-danger: #F43F5E;
 }
 
 /* ==========================================
    BODY & BASE STYLES
    ========================================== */
-body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+:root, body, html {
+  background-color: #0B0E14 !important;
+  background-image: none !important;
+  color: #FFFFFF !important;
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 /* ==========================================
-   CUSTOM SCROLLBAR
-   ========================================== */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #0B0E14;
-}
-::-webkit-scrollbar-thumb {
-  background: #1F293D;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #4F46E5;
-}
-
-/* ==========================================
-   SIDEBAR
+   SIDEBAR & GLOBAL BAR
    ========================================== */
 aside {
-  background: #121824 !important;
+  background-color: #101726 !important;
+  background-image: none !important;
   border-right: 1px solid #1F293D !important;
 }
 
+header {
+  background-color: #101726 !important;
+  background-image: none !important;
+  border-bottom: 1px solid #1F293D !important;
+  backdrop-filter: none !important;
+}
+
+/* Sidebar Navigation Items */
 aside nav a {
   border-radius: 8px !important;
   transition: all 0.2s ease !important;
   color: #8A94A6 !important;
+  background: transparent !important;
 }
 
 aside nav a:hover {
-  background: rgba(99, 102, 241, 0.1) !important;
+  background-color: rgba(99, 102, 241, 0.1) !important;
   color: #FFFFFF !important;
 }
 
-aside nav a.active, aside nav a[href*="active"] {
-  background: rgba(99, 102, 241, 0.15) !important;
+/* Active Navigation & Primary Action Accents */
+aside nav a.active, 
+aside nav a[href*="active"], 
+aside nav a[class*="bg-accent"],
+aside nav a[class*="bg-indigo-500/10"] {
+  background-color: #121824 !important;
   border-left: 3px solid #6366F1 !important;
   color: #FFFFFF !important;
-  padding-left: 13px !important; /* adjust for border */
+  padding-left: 13px !important; /* adjust for border width */
 }
 
 /* ==========================================
-   HEADER BAR
+   CARDS / PANELS / GRIDS
    ========================================== */
-header {
-  background: rgba(18, 24, 36, 0.85) !important;
-  backdrop-filter: blur(12px) !important;
-  border-bottom: 1px solid #1F293D !important;
-}
-
-/* ==========================================
-   CARD STYLES (INCIDENTS / PANELS)
-   ========================================== */
+/* Force absolute card backgrounds, borders, and remove box-shadow */
 .incident-card, 
+div[class*="bg-bg-card"], 
 div[class*="bg-slate-800"], 
-div[class*="bg-slate-900"] {
-  background: var(--card-bg) !important;
-  border-color: var(--card-border) !important;
-  border-radius: 12px !important;
-  transition: all 0.2s ease !important;
+div[class*="bg-slate-900"],
+main > div > div[class*="bg-"] {
+  background-color: #121824 !important;
+  background-image: none !important;
+  border: 1px solid #1F293D !important;
+  box-shadow: none !important;
+  border-radius: 0.75rem !important; /* rounded-xl */
 }
 
+/* Disable blurry glows */
 a[href^="/incident/"]:hover,
 .incident-card:hover {
-  border-color: var(--card-hover-border) !important;
-  box-shadow: var(--glow-indigo) !important;
+  border-color: #6366F1 !important;
+  box-shadow: none !important;
   transform: translateY(-2px) !important;
 }
 
 /* ==========================================
-   SELECT / DROPDOWN
+   STATUS BADGES & CHIPS
    ========================================== */
-select {
-  appearance: none !important;
-  background-color: #161D2A !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236366F1' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E") !important;
-  background-repeat: no-repeat !important;
-  background-position: right 14px center !important;
-  background-size: 16px 16px !important;
-  color: #FFFFFF !important;
-  border: 1px solid #1F293D !important;
-  border-radius: 8px !important;
-  padding: 8px 36px 8px 12px !important;
+/* RESOLVED: Mint Green */
+span[class*="text-emerald"], 
+span[class*="border-emerald"] {
+  background-color: rgba(16, 185, 129, 0.1) !important;
+  color: #10B981 !important;
+  border-color: rgba(16, 185, 129, 0.3) !important;
 }
 
-select:hover, select:focus {
-  border-color: #6366F1 !important;
-  outline: none !important;
+/* PENDING / ALERT / MEDIUM: Amber/Orange glow */
+span[class*="text-amber"], 
+span[class*="border-amber"],
+span[class*="text-yellow"], 
+span[class*="border-yellow"] {
+  background-color: rgba(217, 119, 6, 0.1) !important;
+  color: #D97706 !important;
+  border-color: rgba(217, 119, 6, 0.3) !important;
 }
 
-select option {
-  background-color: #121824 !important;
-  color: #FFFFFF !important;
+/* REJECTED: Soft Coral Red */
+span[class*="text-rose"], 
+span[class*="border-rose"],
+span[class*="text-red"], 
+span[class*="border-red"] {
+  background-color: rgba(244, 63, 94, 0.1) !important;
+  color: #F43F5E !important;
+  border-color: rgba(244, 63, 94, 0.3) !important;
+}
+
+/* HOLD / NEUTRAL: Slate Gray */
+span[class*="text-slate"], 
+span[class*="border-slate"] {
+  background-color: rgba(138, 148, 166, 0.1) !important;
+  color: #8A94A6 !important;
+  border-color: rgba(138, 148, 166, 0.3) !important;
 }
 
 /* ==========================================
-   HEADING GRADIENT TEXT
+   TYPOGRAPHY
    ========================================== */
-h1 {
+h1, h2, h3, h4, h5, h6, strong {
   color: #FFFFFF !important;
   background: none !important;
   -webkit-text-fill-color: #FFFFFF !important;
 }
 
-/* ==========================================
-   ROI WIDGET
-   ========================================== */
-div[class*="border-emerald-500"] {
-  box-shadow: var(--glow-emerald) !important;
-  background: #121824 !important;
-  border-color: #10B981 !important;
+p, span, div {
+  /* Provide a fallback secondary color where appropriate without breaking primary text */
+}
+
+.text-text-secondary, .text-slate-400, .text-slate-500 {
+  color: #8A94A6 !important;
+}
+
+.text-text-primary, .text-white, .text-slate-100 {
+  color: #FFFFFF !important;
 }
 
 /* ==========================================
-   EMERGENCY PULSING
+   BUTTONS
    ========================================== */
-@keyframes emergency-glow {
-  0%, 100% { box-shadow: 0 0 10px rgba(244, 63, 94, 0.2); border-color: rgba(244, 63, 94, 0.4); }
-  50% { box-shadow: 0 0 20px rgba(244, 63, 94, 0.4); border-color: rgba(244, 63, 94, 0.8); }
+button[class*="bg-accent"], button[class*="bg-indigo"] {
+  background-color: #6366F1 !important;
+  color: #FFFFFF !important;
+  border: none !important;
 }
 
-div[class*="bg-rose-950"][class*="animate-pulse"] {
-  animation: emergency-glow 2s ease-in-out infinite !important;
-  background: #121824 !important;
-  border-width: 2px !important;
+button[class*="bg-accent"]:hover, button[class*="bg-indigo"]:hover {
+  background-color: #4F46E5 !important;
+}
+
+button[class*="bg-rose"], button[class*="bg-red"] {
+  background-color: #F43F5E !important;
+  color: #FFFFFF !important;
 }
 
 /* ==========================================
-   CODE BLOCKS
+   MISC
    ========================================== */
+/* Code Blocks */
 pre, code, .font-mono {
   font-family: 'JetBrains Mono', monospace !important;
-  background: #0B0E14 !important;
+  background-color: #0B0E14 !important;
   border: 1px solid #1F293D !important;
   color: #8A94A6 !important;
 }
 
-/* ==========================================
-   TABLES
-   ========================================== */
+/* Tables */
 thead th {
-  background: #161D2A !important;
+  background-color: #101726 !important;
   color: #8A94A6 !important;
   border-bottom: 1px solid #1F293D !important;
 }
@@ -180,27 +199,5 @@ tbody td {
   border-bottom: 1px solid #1F293D !important;
 }
 tbody tr:hover {
-  background: #161D2A !important;
-}
-
-/* ==========================================
-   BUTTONS
-   ========================================== */
-button[class*="bg-rose"] {
-  background: #F43F5E !important;
-  color: white !important;
-  border: none !important;
-}
-button[class*="bg-rose"]:hover {
-  background: #E11D48 !important;
-  box-shadow: var(--glow-rose) !important;
-}
-button[class*="bg-indigo"] {
-  background: #4F46E5 !important;
-  color: white !important;
-  border: none !important;
-}
-button[class*="bg-indigo"]:hover {
-  background: #4338CA !important;
-  box-shadow: var(--glow-indigo) !important;
+  background-color: #161D2A !important;
 }

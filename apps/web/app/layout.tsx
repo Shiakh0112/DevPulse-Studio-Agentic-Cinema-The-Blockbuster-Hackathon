@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body className="bg-bg-main text-text-primary min-h-screen antialiased overflow-x-hidden" suppressHydrationWarning>
+      <body className="bg-[#0B0E14] text-[#FFFFFF] min-h-screen antialiased overflow-x-hidden" suppressHydrationWarning>
         <RoleProvider>
           <ResponsiveLayout>
             {children}

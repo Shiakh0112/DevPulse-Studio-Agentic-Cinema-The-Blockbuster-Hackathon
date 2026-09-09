@@ -31,7 +31,7 @@ export const RoleSwitcher: React.FC = () => {
   }, []);
 
   const rolesList: { id: UserRole; label: string; icon: React.ReactNode; color: string }[] = [
-    { id: 'viewer', label: 'Viewer', icon: <Eye className="w-4 h-4 text-text-secondary" />, color: 'text-text-secondary' },
+    { id: 'viewer', label: 'Viewer', icon: <Eye className="w-4 h-4 text-[#8A94A6]" />, color: 'text-[#8A94A6]' },
     { id: 'engineer', label: 'Engineer', icon: <UserCheck className="w-4 h-4 text-emerald-400" />, color: 'text-emerald-300' },
     { id: 'admin', label: 'Admin', icon: <Shield className="w-4 h-4 text-rose-400" />, color: 'text-rose-300' },
   ];
@@ -46,24 +46,24 @@ export const RoleSwitcher: React.FC = () => {
         onClick={() => setIsOpen((prev) => !prev)}
         className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl border text-xs font-semibold transition-all duration-200 shadow-md cursor-pointer ${
           isOpen
-            ? 'bg-bg-main border-accent-DEFAULT/80 ring-2 ring-amber-500/20 text-white shadow-amber-500/10 shadow-lg'
-            : 'bg-bg-main/80 border-border-subtle/60 text-text-primary hover:border-accent-DEFAULT/50 hover:bg-bg-main'
+            ? 'bg-[#0B0E14] border-[#6366F1]/80 ring-2 ring-amber-500/20 text-white shadow-amber-500/10 shadow-lg'
+            : 'bg-[#0B0E14]/80 border-[#1F293D]/60 text-[#FFFFFF] hover:border-[#6366F1]/50 hover:bg-[#0B0E14]'
         }`}
       >
         {currentConfig.icon}
-        <span className="text-text-secondary font-mono uppercase tracking-wider">Role:</span>
+        <span className="text-[#8A94A6] font-mono uppercase tracking-wider">Role:</span>
         <span className={`${currentConfig.color} font-semibold`}>{currentConfig.label}</span>
         <ChevronDown
-          className={`w-3.5 h-3.5 text-accent-DEFAULT/80 shrink-0 transition-transform duration-200 ${
-            isOpen ? 'rotate-180 text-accent-DEFAULT' : ''
+          className={`w-3.5 h-3.5 text-[#6366F1]/80 shrink-0 transition-transform duration-200 ${
+            isOpen ? 'rotate-180 text-[#6366F1]' : ''
           }`}
         />
       </button>
 
       {/* Floating Menu */}
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 w-48 z-50 bg-bg-main/95 backdrop-blur-xl border border-border-subtle/80 rounded-xl shadow-2xl overflow-hidden py-1 animate-in fade-in zoom-in-95 duration-150">
-          <div className="px-3 py-1.5 text-[10px] font-mono text-text-secondary uppercase tracking-widest border-b border-border-subtle/80">
+        <div className="absolute right-0 top-full mt-2 w-48 z-50 bg-[#0B0E14]/95 backdrop-blur-xl border border-[#1F293D]/80 rounded-xl shadow-2xl overflow-hidden py-1 animate-in fade-in zoom-in-95 duration-150">
+          <div className="px-3 py-1.5 text-[10px] font-mono text-[#8A94A6] uppercase tracking-widest border-b border-[#1F293D]/80">
             Switch RBAC Role
           </div>
           {rolesList.map((r) => {
@@ -78,15 +78,15 @@ export const RoleSwitcher: React.FC = () => {
                 }}
                 className={`w-full text-left px-3.5 py-2.5 text-xs flex items-center justify-between transition-colors duration-150 cursor-pointer ${
                   isSelected
-                    ? 'bg-accent-DEFAULT/15 text-accent-DEFAULT font-bold border-l-2 border-accent-DEFAULT'
-                    : 'text-text-secondary hover:bg-bg-card/80 hover:text-accent-DEFAULT'
+                    ? 'bg-[#6366F1]/15 text-[#6366F1] font-bold border-l-2 border-[#6366F1]'
+                    : 'text-[#8A94A6] hover:bg-[#121824]/80 hover:text-[#6366F1]'
                 }`}
               >
                 <div className="flex items-center gap-2">
                   {r.icon}
-                  <span className={isSelected ? 'text-accent-DEFAULT' : r.color}>{r.label}</span>
+                  <span className={isSelected ? 'text-[#6366F1]' : r.color}>{r.label}</span>
                 </div>
-                {isSelected && <Check className="w-4 h-4 text-accent-DEFAULT shrink-0" />}
+                {isSelected && <Check className="w-4 h-4 text-[#6366F1] shrink-0" />}
               </button>
             );
           })}

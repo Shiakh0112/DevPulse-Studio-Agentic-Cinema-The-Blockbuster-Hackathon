@@ -30,10 +30,10 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     const color = payload[0].payload.fill || COLORS[0];
     return (
-      <div className="bg-bg-main/80 backdrop-blur-md border border-border-subtle/50 p-3 rounded-xl shadow-lg" style={{ borderColor: `${color}40`, boxShadow: `0 4px 20px ${color}20` }}>
-        <p className="text-text-secondary text-xs font-mono mb-1">{label}</p>
+      <div className="bg-[#0B0E14]/80 backdrop-blur-md border border-[#1F293D]/50 p-3 rounded-xl shadow-lg" style={{ borderColor: `${color}40`, boxShadow: `0 4px 20px ${color}20` }}>
+        <p className="text-[#8A94A6] text-xs font-mono mb-1">{label}</p>
         <p className="font-bold text-sm" style={{ color }}>
-          {payload[0].value} <span className="text-text-secondary text-xs font-normal">Occurrences</span>
+          {payload[0].value} <span className="text-[#8A94A6] text-xs font-normal">Occurrences</span>
         </p>
       </div>
     );
@@ -44,7 +44,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 export const ErrorTypeChart: React.FC<ErrorTypeChartProps> = ({ data = [] }) => {
   if (!data || data.length === 0) {
     return (
-      <div className="bg-bg-main/50 border border-border-subtle rounded-xl p-8 text-center text-text-secondary font-mono text-sm shadow-inner">
+      <div className="bg-[#0B0E14]/50 border border-[#1F293D] rounded-xl p-8 text-center text-[#8A94A6] font-mono text-sm shadow-inner">
         No error category distribution captured.
       </div>
     );
@@ -57,7 +57,7 @@ export const ErrorTypeChart: React.FC<ErrorTypeChartProps> = ({ data = [] }) => 
   }));
 
   return (
-    <div className="bg-bg-main/40 backdrop-blur-sm border border-border-subtle rounded-xl p-5 shadow-xl space-y-2 transition-all hover:border-border-subtle">
+    <div className="bg-[#0B0E14]/40 backdrop-blur-sm border border-[#1F293D] rounded-xl p-5 shadow-xl space-y-2 transition-all hover:border-[#1F293D]">
       <div className="h-64 w-full mt-2">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart

@@ -20,7 +20,7 @@ export const DiffViewer: React.FC<DiffViewerProps> = ({
 
   if (!rawDiff || rawDiff.trim().length === 0) {
     return (
-      <div className="bg-bg-main border border-border-subtle rounded-xl p-6 text-center text-text-secondary font-mono text-sm">
+      <div className="bg-[#0B0E14] border border-[#1F293D] rounded-xl p-6 text-center text-[#8A94A6] font-mono text-sm">
         No diff preview available.
       </div>
     );
@@ -29,18 +29,18 @@ export const DiffViewer: React.FC<DiffViewerProps> = ({
   const lines = rawDiff.split("\n");
 
   return (
-    <div className="bg-bg-main border border-border-subtle rounded-xl overflow-hidden shadow-xl">
+    <div className="bg-[#0B0E14] border border-[#1F293D] rounded-xl overflow-hidden shadow-xl">
       {/* Header section if attemptNumber > 1 or fileName provided */}
       {(attemptNumber && attemptNumber > 1) || fileName ? (
-        <div className="bg-bg-card/80 border-b border-border-subtle/60 px-4 py-2.5 flex flex-wrap items-center justify-between gap-2">
+        <div className="bg-[#121824]/80 border-b border-[#1F293D]/60 px-4 py-2.5 flex flex-wrap items-center justify-between gap-2">
           {fileName && (
-            <div className="flex items-center gap-2 text-xs font-mono text-text-secondary">
+            <div className="flex items-center gap-2 text-xs font-mono text-[#8A94A6]">
               <GitCommit className="w-4 h-4 text-indigo-400" />
               <span>{fileName}</span>
             </div>
           )}
           {attemptNumber && attemptNumber > 1 && (
-            <div className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-accent-DEFAULT/20 text-accent-DEFAULT border border-accent-DEFAULT/40">
+            <div className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-[#6366F1]/20 text-[#6366F1] border border-[#6366F1]/40">
               <RotateCcw className="w-3.5 h-3.5" />
               Fix Attempt #{attemptNumber} (after self-healing retry)
             </div>
@@ -49,15 +49,15 @@ export const DiffViewer: React.FC<DiffViewerProps> = ({
       ) : null}
 
       {/* Code Block with Horizontal Scroll */}
-      <div className="p-4 overflow-x-auto font-mono text-xs leading-relaxed bg-bg-main/80">
+      <div className="p-4 overflow-x-auto font-mono text-xs leading-relaxed bg-[#0B0E14]/80">
         <pre className="whitespace-pre">
           {lines.map((line, idx) => {
-            let lineStyle = "text-text-secondary px-2 py-0.5";
+            let lineStyle = "text-[#8A94A6] px-2 py-0.5";
 
             if (line.startsWith("@@")) {
-              lineStyle = "bg-bg-card/90 text-cyan-400 font-bold px-2 py-1 rounded-sm my-1 border-l-2 border-cyan-500";
+              lineStyle = "bg-[#121824]/90 text-cyan-400 font-bold px-2 py-1 rounded-sm my-1 border-l-2 border-cyan-500";
             } else if (line.startsWith("---") || line.startsWith("+++")) {
-              lineStyle = "text-text-secondary font-semibold px-2 py-0.5";
+              lineStyle = "text-[#8A94A6] font-semibold px-2 py-0.5";
             } else if (line.startsWith("+")) {
               lineStyle = "bg-emerald-950/60 text-emerald-300 border-l-2 border-emerald-500 px-2 py-0.5 font-medium";
             } else if (line.startsWith("-")) {
