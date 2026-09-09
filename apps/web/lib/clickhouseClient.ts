@@ -18,9 +18,9 @@ import {
   RollbackEvent,
 } from "./types";
 
-const clickhouseHost = process.env.CLICKHOUSE_HOST || "http://localhost:8123";
-const clickhouseUser = process.env.CLICKHOUSE_USER || "devpulse_web";
-const clickhousePassword = process.env.CLICKHOUSE_PASSWORD || "devpulse123";
+const clickhouseHost = process.env.CLICKHOUSE_HOST || "https://wq7ry2rimf.asia-northeast1.gcp.clickhouse.cloud:8443";
+const clickhouseUser = process.env.CLICKHOUSE_USER || "default";
+const clickhousePassword = process.env.CLICKHOUSE_PASSWORD || "Sd0x6pcl5~cFD";
 const clickhouseDatabase = process.env.CLICKHOUSE_DB || "devpulse";
 
 // Lazy-initialized ClickHouse client instance
