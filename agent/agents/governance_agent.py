@@ -95,6 +95,18 @@ def run_governance_agent(incident_data: dict, proposal: dict, verification: dict
             logger.error(f"[Agent: Governance] Failed to insert incident_events: {insert_event.get('error')}")
             raise Exception(f"Database event insert failed: {insert_event.get('error')}")
 
+        if is_emergency:
+            emergency_event = {
+                "event_id": str(uuid.uuid4()),
+                "incident_id": incident_id,
+                "event_type": "EMERGENCY_FLAGGED",
+                "payload": json.dumps({"reason": "Affected users exceeded 1000 threshold. Triggering Auto-Rollback Guardrails."})
+            }
+            insert_em = mcp_tool.insert_row("incident_events", emergency_event)
+            if not insert_em.get("success"):
+                logger.error(f"[Agent: Governance] Failed to insert EMERGENCY_FLAGGED event: {insert_em.get('error')}")
+                raise Exception(f"Database event insert failed: {insert_em.get('error')}")
+
     except Exception as db_exc:
         logger.error(f"[Agent: Governance] Critical Database Error during governance: {str(db_exc)}")
         raise
