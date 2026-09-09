@@ -13,21 +13,27 @@ function getRelativeTimeString(dateInput?: string | Date): string {
   if (!dateInput) return "just now";
   let date: Date;
   if (typeof dateInput === "string") {
-    // If ISO string lacks timezone 'Z' or offset, append 'Z' so JS parses as UTC
     let parseable = dateInput.trim();
-    if (!parseable.endsWith("Z") && !parseable.includes("+") && !parseable.includes("-") && parseable.includes("T")) {
+    // Convert ClickHouse "YYYY-MM-DD HH:MM:SS" to ISO standard "YYYY-MM-DDTHH:MM:SS"
+    if (parseable.includes(" ") && !parseable.includes("T")) {
+      parseable = parseable.replace(" ", "T");
+    }
+    // If no timezone offset is specified, treat as UTC by appending 'Z'
+    if (!parseable.endsWith("Z") && !parseable.includes("+") && !parseable.includes("-")) {
       parseable += "Z";
     }
     date = new Date(parseable);
   } else {
     date = dateInput;
   }
+  
   if (isNaN(date.getTime())) return "just now";
 
   const now = new Date();
   const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
-  if (diffInSeconds < 0 || diffInSeconds < 10) return "just now";
+  // If timestamp is in the future due to server clock skew or parsed as local UTC drift, default to "just now"
+  if (diffInSeconds <= 15) return "just now";
   if (diffInSeconds < 60) return `${diffInSeconds}s ago`;
   const minutes = Math.floor(diffInSeconds / 60);
   if (minutes < 60) return `${minutes}m ago`;
