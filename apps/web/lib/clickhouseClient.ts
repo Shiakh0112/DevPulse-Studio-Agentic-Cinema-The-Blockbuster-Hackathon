@@ -70,7 +70,7 @@ export async function getIncidents(filters?: {
 
   const whereSql = whereClauses.length > 0 ? `WHERE ${whereClauses.join(" AND ")}` : "";
   const limitSql = `LIMIT ${filters?.limit || 50}`;
-  const sql = `SELECT * FROM devpulse.incidents FINAL ${whereSql} ORDER BY created_at DESC ${limitSql};`;
+  const sql = `SELECT * FROM devpulse.incidents ${whereSql} ORDER BY created_at DESC ${limitSql};`;
 
   const dbIncidents = await queryClickHouse<Incident>(sql);
   const combined = [...inMemory, ...dbIncidents];
@@ -93,7 +93,7 @@ export async function getIncidents(filters?: {
  * Fetches a single incident by its unique UUID.
  */
 export async function getIncidentById(id: string): Promise<Incident | null> {
-  const sql = `SELECT * FROM devpulse.incidents FINAL WHERE incident_id = '${id}' LIMIT 1;`;
+  const sql = `SELECT * FROM devpulse.incidents WHERE incident_id = '${id}' LIMIT 1;`;
   const results = await queryClickHouse<Incident>(sql);
   
   if (results && results.length > 0) {
